@@ -204,7 +204,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\framework/cache/data',
+        'path' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -474,7 +474,7 @@
     ),
     'temporary_files' => 
     array (
-      'local_path' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\framework/cache/laravel-excel',
+      'local_path' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\framework/cache/laravel-excel',
       'remote_disk' => NULL,
       'remote_prefix' => NULL,
       'force_resync_remote' => NULL,
@@ -488,13 +488,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\app',
+        'root' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\app',
         'throw' => false,
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\app/public',
+        'root' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\app/public',
         'url' => 'https://matoaphotobooth.com//storage',
         'visibility' => 'public',
         'throw' => false,
@@ -514,7 +514,7 @@
     ),
     'links' => 
     array (
-      'C:\\xampp\\htdocs\\dev.photo\\public\\storage' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\app/public',
+      'C:\\xampp\\htdocs\\project\\dev.photo\\public\\storage' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\app/public',
     ),
   ),
   'flare' => 
@@ -604,7 +604,7 @@
     array (
     ),
     'enable_runnable_solutions' => NULL,
-    'remote_sites_path' => 'C:\\xampp\\htdocs\\dev.photo',
+    'remote_sites_path' => 'C:\\xampp\\htdocs\\project\\dev.photo',
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
     'settings_file_path' => '',
@@ -642,13 +642,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -700,7 +700,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\logs/laravel.log',
+        'path' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -766,7 +766,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\dev.photo\\resources\\views/vendor/mail',
+        0 => 'C:\\xampp\\htdocs\\project\\dev.photo\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -924,7 +924,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\framework/sessions',
+    'files' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1000,8 +1000,8 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\dev.photo\\resources\\views',
+      0 => 'C:\\xampp\\htdocs\\project\\dev.photo\\resources\\views',
     ),
-    'compiled' => 'C:\\xampp\\htdocs\\dev.photo\\storage\\framework\\views',
+    'compiled' => 'C:\\xampp\\htdocs\\project\\dev.photo\\storage\\framework\\views',
   ),
 );
