@@ -35,7 +35,7 @@
     $(document).ready(function() {
         $('#datatables').DataTable({
             "pagingType": "full_numbers",
-            "ordering": false,
+            "ordering": true, // Enable sorting for all columns
             "lengthMenu": [
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
@@ -46,12 +46,12 @@
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
             },
-            "initComplete": function(){ 
-                $("#datatables").show(); 
-            }
+            "initComplete": function(){
+                $("#datatables").show();
+            },
         });
 
-        var table = $('#datatable').DataTable();
+        var table = $('#datatables').DataTable(); // Correct the selector
 
         // Edit record
         table.on('click', '.edit', function() {
@@ -67,12 +67,13 @@
             e.preventDefault();
         });
 
-        //Like record
+        // Like record
         table.on('click', '.like', function() {
-            alert('You clicked on Like button');
+            alert('You clicked on the Like button');
         });
     });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const canvas = document.getElementById('dashboard-chart');

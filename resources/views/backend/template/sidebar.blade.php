@@ -9,7 +9,7 @@
     </div>
     <div class="sidebar-wrapper">
         <div class="user">
-      
+
             <div class="user-info">
                 <ul class="nav">
                     <li class="nav-item {{ (request()->segment(1) == 'my-profile') ? 'active' : '' }}">
@@ -34,7 +34,7 @@
                     <p> User Tracking / Transaksi </p>
                 </a>
             </li>
-            
+
             <li class="nav-item {{ (request()->segment(1) == 'list-contact') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('list-contact.index')}}">
                     <i class="material-icons">contact_mail</i>

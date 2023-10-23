@@ -9,3 +9,4 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="{{ (asset('assets/css/material-dashboard.min1c51.css?v=2.1.2')) }}" rel="stylesheet" />
 <link href="{{ (asset('assets/demo/demo.css')) }}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.3.1/css/rowReorder.dataTables.css" />  

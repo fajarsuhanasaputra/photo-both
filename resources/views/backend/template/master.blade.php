@@ -5,7 +5,7 @@
         @include('backend.template.header')
     </head>
 
-    <body class="">
+    <body>
         <div class="wrapper ">
             @include('backend.template.sidebar')
 

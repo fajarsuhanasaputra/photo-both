@@ -62,7 +62,7 @@
         <h1>Dear {{ $post['name'] }} </h1>
         <div class="content">
             <h2>Terima kasih telah berkunjung</h2>
-            <p>Berikut adalah link photo anda yang kami kirimkan melalui email <br/> 
+            <p>Berikut adalah link photo anda yang kami kirimkan melalui email <br/>
                 Silahkan klik tombol di bawah ini</p>
             <a href="{{ (asset('storage/app/public/images/gallery/'. $post['code']. '/' .$post['img_data'])) }}" class="button">Klik Disini</a>
         </div>

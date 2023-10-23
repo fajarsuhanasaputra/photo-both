@@ -70,7 +70,7 @@ class DashboardController extends Controller
                 $query->where('booth_id', $booth_name);
             })->groupBy(DB::raw("date(created_at)"))
             ->where('status', 'COMPLETE')
-            ->orderByRaw("date(created_at) asc")
+            ->orderByRaw("date(created_at) desc")
             ->get();
 
         $booth = Booth::latest()->get();
