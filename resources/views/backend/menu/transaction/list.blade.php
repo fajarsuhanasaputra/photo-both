@@ -8,7 +8,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                {{ csrf_field()}}
+                                {{-- {{ csrf_field()}}
                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                     <label for="tgl-end" class="mb-3">Dari</label>
                                     <input name="tgl-start" type="date" id="tgl-start" class="form-control" value="{{ $tgl_start }}" max="{{ $tgl_end }}" onchange="onStartChange()" />
@@ -33,7 +33,7 @@
                                         @endif
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                     <button type="submit" class="btn btn-success btn-sm mt-3">
                                         Terapkan
@@ -93,7 +93,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($data as $index=>$dt)
+                                    {{-- @foreach($data as $index=>$dt)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $dt->trx_id }} </td>
@@ -110,7 +110,7 @@
                                             </a>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -118,6 +118,30 @@
                 </div>
                 <div class="text-center">
                     @include('errors.submit')
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="material-datatables">
+                            <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>TRANSACTION-ID</th>
+                                        <th>BOOTH</th>
+                                        <th>PAKET</th>
+                                        <th>TOTAL</th>
+                                        <th>DATE/TIME CREATED</th>
+                                        <th>PAGE</th>
+                                        <th>DATE/TIME UPDATED</th>
+                                        <th>STATUS</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,3 +159,32 @@
     }
 </script>
 @stop
+@push('scripts')
+    <script type="text/javascript">
+        $(function(){
+            $('#yajra-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('transaction.index') }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'trx_id', name: 'trx_id' },
+                    { data: 'booth_name', name: 'booth_name' },
+                    { data: 'package_name', name: 'package_name' },
+                    { data: 'amount', name: 'amount' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'page', name: 'page' },
+                    { data: 'updated_at', name: 'updated_at' },
+                    { data: 'status', name: 'status' },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+
+                ]
+            });
+        });
+    </script>
+@endpush

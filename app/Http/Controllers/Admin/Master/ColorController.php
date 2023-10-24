@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Master;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Color;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
 
 class ColorController extends Controller {
 
@@ -12,11 +13,16 @@ class ColorController extends Controller {
         $this->middleware('auth');
     }
 
-    public function index() {
-        $data = Color::all();
-        $view['data'] = $data;
-
-        return view('backend.menu.master.color.list', $view);
+    public function index(Request $request) {
+        if ($request->ajax()) {
+            $data = Color::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('backend.menu.master.color.list');
     }
 
     public function store(Request $request) {

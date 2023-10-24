@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin\Management;
 
-use App\Http\Controllers\Controller;
-//use Illuminate\Http\Request;
-use App\Models\Gallery\GalleryImage;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Models\ListContact;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ContactListsExport;
+//use Illuminate\Http\Request;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
+use App\Exports\ContactListsExport;
+use App\Http\Controllers\Controller;
+use App\Models\Gallery\GalleryImage;
+use Maatwebsite\Excel\Facades\Excel;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ListContactsController extends Controller
 {
@@ -20,22 +21,35 @@ class ListContactsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data['data'] = ListContact::join('booths', 'booths.id', '=', 'list_contacts.booth_id')
-            ->orderBy('list_contacts.created_at', 'desc')
-            ->select(
-                'list_contacts.id',
-                'list_contacts.image_print_id',
-                'list_contacts.transaksi_id',
-                'list_contacts.name',
-                'list_contacts.phone',
-                'list_contacts.email',
-                'list_contacts.kritik_saran',
-                'booths.booth_name',
-                'list_contacts.created_at'
-            )->get();
-        return view('backend.menu.management.list-contacts.list', $data);
+        // $data['data'] = ListContact::join('booths', 'booths.id', '=', 'list_contacts.booth_id')
+        // ->orderBy('list_contacts.created_at', 'desc')
+        // ->select(
+        //     'list_contacts.id',
+        //     'list_contacts.image_print_id',
+        //     'list_contacts.transaksi_id',
+        //     'list_contacts.name',
+        //     'list_contacts.phone',
+        //     'list_contacts.email',
+        //     'list_contacts.kritik_saran',
+        //     'booths.booth_name',
+        //     'list_contacts.created_at'
+        // )->get();
+        // $data = ListContact::take(10)->get();
+        //     dd($data);
+        if ($request->ajax()) {
+            $data = ListContact::all();
+            // dd($data);
+            return DataTables::of($data)
+                ->addIndexColumn()
+
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+
+        return view('backend.menu.management.list-contacts.list');
     }
 
     public function show($id)

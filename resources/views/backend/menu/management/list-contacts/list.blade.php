@@ -49,7 +49,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($data as $index=>$dt)
+                                    {{-- @foreach($data as $index=>$dt)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $dt->transaksi_id }}</td>
@@ -73,7 +73,7 @@
                                         </td>
 
                                     </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -81,6 +81,32 @@
                     <!-- end content-->
                 </div>
                 <!--  end card  -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="material-datatables">
+                            <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Transaksi ID</th>
+                                        <th>Image Print ID</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Code</th>
+                                        <th>Img Data</th>
+                                        <th>Booth Id</th>
+                                        <th>Kritik & Saran</th>
+                                        <th>Tanggal</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- end col-md-12 -->
         </div>
@@ -88,3 +114,29 @@
     </div>
 </div>
 @stop
+@push('scripts')
+    <script type="text/javascript">
+        $(function(){
+            $('#yajra-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('list-contact.index') }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'transaksi_id', name: 'transaksi_id' },
+                    { data: 'image_print_id', name: 'image_print_id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'phone', name: 'phone' },
+                    { data: 'email', name: 'email' },
+                    { data: 'code', name: 'code' },
+                    { data: 'img_data', name: 'img_data' },
+                    { data: 'booth_id', name: 'booth_id' },
+                    { data: 'kritik_saran', name: 'kritik_saran' },
+                    { data: 'created_at', name: 'created_at' },
+
+
+                ]
+            });
+        });
+    </script>
+@endpush

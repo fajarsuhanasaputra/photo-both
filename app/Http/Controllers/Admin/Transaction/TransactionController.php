@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Transaction;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Transaction;
-use App\Models\Callback;
 use App\Models\Booth;
+use App\Models\Callback;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
 
 class TransactionController extends Controller
 {
@@ -24,11 +25,12 @@ class TransactionController extends Controller
         if ($booth_name == 'semua') {
             $booth_name = '';
         }
+        if ($request->ajax()) {
 
-        $data['data'] = Callback::join('booths', 'callbacks.booth_id', '=', 'booths.id')
+            $data['data'] = Callback::join('booths', 'callbacks.booth_id', '=', 'booths.id')
             ->join('packages', 'callbacks.package_id', '=', 'packages.id')
             ->select(
-                'callbacks.id',
+                'callbacks.id as DT_RowIndex',
                 'callbacks.trx_id',
                 'booths.booth_name',
                 'packages.package_name',
@@ -46,6 +48,12 @@ class TransactionController extends Controller
             })->orderBy('callbacks.created_at', 'desc')
             ->get();
 
+            return DataTables::of($data)
+            ->addIndexColumn()
+
+            ->rawColumns(['action'])
+            ->make(true);
+        }
         $booth = Booth::latest()->get();
         $data['booth'] = $booth;
 
@@ -58,7 +66,7 @@ class TransactionController extends Controller
         $data['tgl_start'] = $tgl_start;
         $data['tgl_end'] = $tgl_end;
 
-        return view('backend.menu.transaction.list', $data);
+        return view('backend.menu.transaction.list');
     }
 
     /**

@@ -71,7 +71,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="material-datatables">
-                            <table id="datatable yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -80,7 +80,6 @@
                                         <th>Value</th>
                                         <th>Start</th>
                                         <th>Expired</th>
-                                        <th>Max Use</th>
                                         <th class="disabled-sorting text-right">Actions</th>
                                     </tr>
                                 </thead>
@@ -103,13 +102,12 @@
                 serverSide: true,
                 ajax: "{{ route('voucher.index') }}",
                 columns: [
-                    { data: 'id', name: 'id' },
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'code', name: 'code' },
                     { data: 'type', name: 'type' },
                     { data: 'value', name: 'value' },
                     { data: 'start', name: 'start' },
                     { data: 'expired', name: 'expired' },
-                    { data: 'maxUse', name: 'maxUse' },
                     {
                         data: 'action',
                         name: 'action',
