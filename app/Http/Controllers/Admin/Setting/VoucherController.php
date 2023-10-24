@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Setting;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Voucher;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
 
 class VoucherController extends Controller {
 
@@ -13,9 +14,19 @@ class VoucherController extends Controller {
         $this->middleware('auth');
     }
 
-    public function index() {
-        $data ['data'] = Voucher::latest()->get();
-        return view('backend.menu.settings.voucher.list', $data);
+    public function index(Request $request) {
+        if ($request->ajax()) {
+            $data = Voucher::latest()->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('backend.menu.settings.voucher.list');
     }
 
     public function coupon(Request $request) {

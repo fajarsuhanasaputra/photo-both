@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\Package\PackageController;
 use App\Http\Controllers\Admin\Setting\VoucherController;
 //use App\Http\Controllers\Admin\Management\GuestController;
 use App\Http\Controllers\Admin\Setting\BuyXGetYController;
-use App\Http\Controllers\Admin\Analytic\AnalyticController;
+// use App\Http\Controllers\Admin\Analytic\AnalyticController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 //Transaction//
 use App\Http\Controllers\Admin\Setting\SettDefaultController;
@@ -60,7 +60,7 @@ Route::post('/update-password', [ProfileController::class, 'update_password'])->
 Route::resource('/booth', BoothController::class);
 Route::resource('/transaction', TransactionController::class);
 
-Route::resource('/analytic', AnalyticController::class);
+// Route::resource('/analytic', AnalyticController::class);
 Route::resource('/user', UserController::class);
 Route::resource('/package', PackageController::class);
 //Master Data//

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text-right">
-                    <button type="button" class="btn btn-round btn-success btn-sm" data-toggle="modal" data-target="#modalTambah"> 
+                    <button type="button" class="btn btn-round btn-success btn-sm" data-toggle="modal" data-target="#modalTambah">
                         <i class="material-icons">add_circle</i> Data
                     </button>
                 </div>
@@ -16,7 +16,7 @@
                         </div>
                         <h4 class="card-title">List Voucher</h4>
                     </div>
-                    <div class="card-body">
+                    {{-- <div class="card-body">
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
@@ -66,6 +66,28 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div> --}}
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="material-datatables">
+                            <table id="datatable yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Code</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Start</th>
+                                        <th>Expired</th>
+                                        <th>Max Use</th>
+                                        <th class="disabled-sorting text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,3 +95,30 @@
     </div>
 </div>
 @stop
+@push('scripts')
+    <script type="text/javascript">
+        $(function(){
+            $('#yajra-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('voucher.index') }}",
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'code', name: 'code' },
+                    { data: 'type', name: 'type' },
+                    { data: 'value', name: 'value' },
+                    { data: 'start', name: 'start' },
+                    { data: 'expired', name: 'expired' },
+                    { data: 'maxUse', name: 'maxUse' },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+
+                ]
+            });
+        });
+    </script>
+@endpush
