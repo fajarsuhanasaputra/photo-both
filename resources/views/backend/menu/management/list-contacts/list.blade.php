@@ -49,7 +49,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    {{-- @foreach($data as $index=>$dt)
+                                    @foreach($data as $index=>$dt)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $dt->transaksi_id }}</td>
@@ -73,7 +73,7 @@
                                         </td>
 
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -88,15 +88,13 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Transaksi ID</th>
                                         <th>Image Print ID</th>
+                                        <th>Transaksi ID</th>
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Email</th>
-                                        <th>Code</th>
-                                        <th>Img Data</th>
-                                        <th>Booth Id</th>
                                         <th>Kritik & Saran</th>
+                                        <th>Booth Name</th>
                                         <th>Tanggal</th>
                                     </tr>
                                 </thead>
@@ -123,19 +121,16 @@
                 ajax: "{{ route('list-contact.index') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    { data: 'transaksi_id', name: 'transaksi_id' },
-                    { data: 'image_print_id', name: 'image_print_id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'phone', name: 'phone' },
-                    { data: 'email', name: 'email' },
-                    { data: 'code', name: 'code' },
-                    { data: 'img_data', name: 'img_data' },
-                    { data: 'booth_id', name: 'booth_id' },
-                    { data: 'kritik_saran', name: 'kritik_saran' },
-                    { data: 'created_at', name: 'created_at' },
-
-
+                    { data: 'image_print_id', name: 'list_contacts.image_print_id' },
+                    { data: 'transaksi_id', name: 'list_contacts.transaksi_id' },
+                    { data: 'name', name: 'list_contacts.name' },
+                    { data: 'phone', name: 'list_contacts.phone' },
+                    { data: 'email', name: 'list_contacts.email' },
+                    { data: 'kritik_saran', name: 'list_contacts.kritik_saran' },
+                    { data: 'booth_name', name: 'booths.booth_name' },
+                    { data: 'created_at', name: 'list_contacts.created_at' },
                 ]
+
             });
         });
     </script>

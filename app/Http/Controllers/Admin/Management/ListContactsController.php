@@ -23,33 +23,55 @@ class ListContactsController extends Controller
 
     public function index(Request $request)
     {
-        // $data['data'] = ListContact::join('booths', 'booths.id', '=', 'list_contacts.booth_id')
-        // ->orderBy('list_contacts.created_at', 'desc')
-        // ->select(
-        //     'list_contacts.id',
-        //     'list_contacts.image_print_id',
-        //     'list_contacts.transaksi_id',
-        //     'list_contacts.name',
-        //     'list_contacts.phone',
-        //     'list_contacts.email',
-        //     'list_contacts.kritik_saran',
-        //     'booths.booth_name',
-        //     'list_contacts.created_at'
-        // )->get();
-        // $data = ListContact::take(10)->get();
+        $data['data'] = ListContact::join('booths', 'booths.id', '=', 'list_contacts.booth_id')
+        ->orderBy('list_contacts.created_at', 'desc')
+        ->select(
+            'list_contacts.id',
+            'list_contacts.image_print_id',
+            'list_contacts.transaksi_id',
+            'list_contacts.name',
+            'list_contacts.phone',
+            'list_contacts.email',
+            'list_contacts.kritik_saran',
+            'booths.booth_name',
+            'list_contacts.created_at'
+        )->get();
         //     dd($data);
-        if ($request->ajax()) {
-            $data = ListContact::all();
-            // dd($data);
-            return DataTables::of($data)
-                ->addIndexColumn()
+        // if ($request->ajax()) {
+        //     $data = ListContact::join('booths', 'booths.id', '=', 'list_contacts.booth_id')
+        //         ->orderBy('list_contacts.created_at', 'desc')
+        //         ->select(
+        //             'list_contacts.id as DT_RowIndex',
+        //             'list_contacts.image_print_id',
+        //             'list_contacts.transaksi_id',
+        //             'list_contacts.name',
+        //             'list_contacts.phone',
+        //             'list_contacts.email',
+        //             'list_contacts.kritik_saran',
+        //             'booths.booth_name',
+        //             'list_contacts.created_at'
+        //         )->get();
 
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+        //     $transformedData = $data->map(function ($item, $key) {
+        //         return [
+        //             'DT_RowIndex' => $item->DT_RowIndex,
+        //             'image_print_id' => $item->image_print_id,
+        //             'transaksi_id' => $item->transaksi_id,
+        //             'name' => $item->name,
+        //             'phone' => $item->phone,
+        //             'email' => $item->email,
+        //             'kritik_saran' => $item->kritik_saran,
+        //             'booth_name' => $item->booth_name,
+        //             'created_at' => $item->created_at,
+        //         ];
+        //     });
+        //     return DataTables::of($data)
+        //         ->addIndexColumn()
 
-
-        return view('backend.menu.management.list-contacts.list');
+        //         ->rawColumns(['action'])
+        //         ->make(true);
+        //     }
+        return view('backend.menu.management.list-contacts.list', $data);
     }
 
     public function show($id)

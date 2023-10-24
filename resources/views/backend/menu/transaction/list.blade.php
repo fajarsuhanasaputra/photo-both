@@ -7,8 +7,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                {{-- {{ csrf_field()}}
+                            {{-- <div class="row">
+                                {{ csrf_field()}}
                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                     <label for="tgl-end" class="mb-3">Dari</label>
                                     <input name="tgl-start" type="date" id="tgl-start" class="form-control" value="{{ $tgl_start }}" max="{{ $tgl_end }}" onchange="onStartChange()" />
@@ -33,13 +33,13 @@
                                         @endif
                                         @endforeach
                                     </select>
-                                </div> --}}
+                                </div>
                                 <div class="col-lg-3 col-md-6 col-sm-6">
                                     <button type="submit" class="btn btn-success btn-sm mt-3">
                                         Terapkan
                                     </button>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -171,17 +171,11 @@
                     { data: 'trx_id', name: 'trx_id' },
                     { data: 'booth_name', name: 'booth_name' },
                     { data: 'package_name', name: 'package_name' },
+                    { data: 'page', name: 'page' },
                     { data: 'amount', name: 'amount' },
                     { data: 'created_at', name: 'created_at' },
-                    { data: 'page', name: 'page' },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'status', name: 'status' },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: true,
-                        searchable: true
-                    },
 
                 ]
             });

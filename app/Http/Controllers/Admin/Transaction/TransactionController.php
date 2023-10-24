@@ -18,35 +18,61 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
-        $booth_name = $request->input('booth-select', '');
-        $tgl_start = $request->input('tgl-start', '');
-        $tgl_end = $request->input('tgl-end', '');
-
-        if ($booth_name == 'semua') {
-            $booth_name = '';
-        }
         if ($request->ajax()) {
+            $booth_name = $request->input('booth-select', '');
+            $tgl_start = $request->input('tgl-start', '');
+            $tgl_end = $request->input('tgl-end', '');
 
-            $data['data'] = Callback::join('booths', 'callbacks.booth_id', '=', 'booths.id')
-            ->join('packages', 'callbacks.package_id', '=', 'packages.id')
-            ->select(
-                'callbacks.id as DT_RowIndex',
-                'callbacks.trx_id',
-                'booths.booth_name',
-                'packages.package_name',
-                'callbacks.page',
-                'callbacks.amount',
-                'callbacks.created_at',
-                'callbacks.updated_at',
-                'callbacks.status',
-            )->when($tgl_start, function ($query, $tgl_start) {
-                $query->where('callbacks.created_at', '>=', $tgl_start);
-            })->when($tgl_end, function ($query, $tgl_end) {
-                $query->where('callbacks.created_at', '<=', $tgl_end . ' 23:59:59');
-            })->when($booth_name, function ($query, $booth_name) {
-                $query->where('callbacks.booth_id', $booth_name);
-            })->orderBy('callbacks.created_at', 'desc')
-            ->get();
+            if ($booth_name == 'semua') {
+                $booth_name = '';
+            }
+
+            $data = Callback::join('booths', 'callbacks.booth_id', '=', 'booths.id')
+                ->join('packages', 'callbacks.package_id', '=', 'packages.id')
+                ->select(
+                    'callbacks.id as DT_RowIndex',
+                    'callbacks.trx_id',
+                    'booths.booth_name',
+                    'packages.package_name',
+                    'callbacks.page',
+                    'callbacks.amount',
+                    'callbacks.created_at',
+                    'callbacks.updated_at',
+                    'callbacks.status',
+                )->when($tgl_start, function ($query, $tgl_start) {
+                    $query->where('callbacks.created_at', '>=', $tgl_start);
+                })->when($tgl_end, function ($query, $tgl_end) {
+                    $query->where('callbacks.created_at', '<=', $tgl_end . ' 23:59:59');
+                })->when($booth_name, function ($query, $booth_name) {
+                    $query->where('callbacks.booth_id', $booth_name);
+                })->orderBy('callbacks.created_at', 'desc')
+                ->get();
+
+            $transformedData = $data->map(function ($item, $key) {
+                return [
+                    'DT_RowIndex' => $item->DT_RowIndex,
+                    'trx_id' => $item->trx_id,
+                    'booth_name' => $item->booth_name,
+                    'package_name' => $item->package_name,
+                    'page' => $item->page,
+                    'amount' => $item->amount,
+                    'created_at' => $item->created_at,
+                    'updated_at' => $item->updated_at,
+                    'status' => $item->status,
+                ];
+            });
+
+            $booth = Booth::latest()->get();
+            $data['booth'] = $booth;
+
+            if ($booth_name == 'semua' || $booth_name == '') {
+                $data['selected_booth'] = 'semua';
+            } else {
+                $data['selected_booth'] = $booth_name;
+            }
+
+            $data['tgl_start'] = $tgl_start;
+            $data['tgl_end'] = $tgl_end;
 
             return DataTables::of($data)
             ->addIndexColumn()
@@ -54,17 +80,7 @@ class TransactionController extends Controller
             ->rawColumns(['action'])
             ->make(true);
         }
-        $booth = Booth::latest()->get();
-        $data['booth'] = $booth;
-
-        if ($booth_name == 'semua' || $booth_name == '') {
-            $data['selected_booth'] = 'semua';
-        } else {
-            $data['selected_booth'] = $booth_name;
-        }
-
-        $data['tgl_start'] = $tgl_start;
-        $data['tgl_end'] = $tgl_end;
+        
 
         return view('backend.menu.transaction.list');
     }
