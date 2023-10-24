@@ -1,29 +1,31 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 //Booth//
-use App\Http\Controllers\Admin\Booth\BoothController;
+use Illuminate\Support\Facades\Artisan;
 //User Management//
-use App\Http\Controllers\Admin\Management\UserController;
+use App\Http\Controllers\HomeController;
 //Master Data//
+use App\Http\Controllers\Admin\Booth\BoothController;
 use App\Http\Controllers\Admin\Master\ColorController;
-use App\Http\Controllers\Admin\Master\FrameController;
 //Setting//
-use App\Http\Controllers\Admin\Setting\VoucherController;
-use App\Http\Controllers\Admin\Setting\SettDefaultController;
-use App\Http\Controllers\Admin\Setting\BuyXGetYController;
-//profile//
-use App\Http\Controllers\Admin\Accont\ProfileController;
-use App\Http\Controllers\Admin\Analytic\AnalyticController;
+use App\Http\Controllers\Admin\Master\FrameController;
 use App\Http\Controllers\Admin\Gallery\ImageController;
+use App\Http\Controllers\Admin\Accont\ProfileController;
+//profile//
+use App\Http\Controllers\Admin\Management\UserController;
+use App\Http\Controllers\Admin\Package\PackageController;
+use App\Http\Controllers\Admin\Setting\VoucherController;
 //use App\Http\Controllers\Admin\Management\GuestController;
-use App\Http\Controllers\Admin\Management\ListContactsController;
-use App\Http\Controllers\Admin\Management\ListGuestController;
+use App\Http\Controllers\Admin\Setting\BuyXGetYController;
+use App\Http\Controllers\Admin\Analytic\AnalyticController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 //Transaction//
+use App\Http\Controllers\Admin\Setting\SettDefaultController;
+use App\Http\Controllers\Admin\Management\ListGuestController;
+use App\Http\Controllers\Admin\Management\ListContactsController;
 use App\Http\Controllers\Admin\Transaction\TransactionController;
-use App\Http\Controllers\Admin\Package\PackageController;
 
 Route::get('/clear', function () {
     Artisan::call('config:cache');
