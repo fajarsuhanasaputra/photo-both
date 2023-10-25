@@ -12,6 +12,8 @@ use Str;
 
 class OyController extends Controller {
 
+//production
+
     private $data_setting;
 
     public function __construct() {
@@ -28,8 +30,8 @@ class OyController extends Controller {
         ));
         $request->setHeader(array(
             'Content-Type' => 'application/json',
-            'x-oy-username' => 'bonophotobooth',
-            'x-api-key' => env('API_KEY', 'c4533efd-240a-4b4b-86be-d6b13f098247'),
+            'x-oy-username' => 'adminbutuhmoment',
+            'x-api-key' => env('API_KEY', '78042200-e174-4490-a720-66d11340c4f4'),
         ));
         $request->setBody('{\n    "partner_user_id": "USR-20211117-1029",\n    "partner_trx_id": "TRX-20211117-1030",\n    "need_frontend": false,\n    "sender_email": "sender@gmail.com",\n    "receive_amount": 14000,\n    "list_enable_payment_method": "VA",\n    "list_enable_sof": "002",\n    "va_display_name": "partner_brand",\n    "payment_routing": [{\n        "recipient_bank": "014",\n        "recipient_account": "1234567890",\n        "recipient_amount": 10000,\n        "recipient_email": "recipient_bca@gmail.com"\n    }]\n}');
         try {
@@ -67,8 +69,8 @@ class OyController extends Controller {
         $amount = $this->useVoucher($request->voucher_id, $this->data_setting->price);
         $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
-                    'x-oy-username' => 'bonophotobooth',
-                    'x-api-key' => env('API_KEY', 'c4533efd-240a-4b4b-86be-d6b13f098247'),
+                    'x-oy-username' => 'adminbutuhmoment',
+                    'x-api-key' => env('API_KEY', '78042200-e174-4490-a720-66d11340c4f4'),
                 ])->post('https://partner.oyindonesia.com/api/payment-routing/create-transaction', [
 //            "partner_user_id" => $data['USR-20211117-1029'],
 //            "partner_trx_id" => $data['TRX-20211117-1030'],
@@ -85,7 +87,7 @@ class OyController extends Controller {
             "receive_amount" => $amount,
             "list_enable_payment_method" => 'QRIS',
             "list_enable_sof" => 'QRIS',
-            "va_display_name" => 'bonophotobooth',
+            "va_display_name" => 'adminbutuhmoment',
             "trx_counter" => 1,
 //            "trx_expiration_time" => Carbon::now()->addMinutes(1)->addSeconds(30)
 //            "payment_routing" => [
@@ -94,8 +96,8 @@ class OyController extends Controller {
 //                    "recipient_account" => 1234567890,
 //                    "recipient_amount" => 10000,
 //                    "recipient_email" => 'recipient@gmail.com',
-//                    
-//                    
+//
+//
 ////                    "recipient_bank" => $data['014'],
 ////                    "recipient_account" => $data['1234567890'],
 ////                    "recipient_amount" => $data['10000'],
@@ -115,8 +117,8 @@ class OyController extends Controller {
         $request->validate(['partner_trx_id' => 'required']);
         $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
-                    'x-oy-username' => 'bonophotobooth',
-                    'x-api-key' => env('API_KEY', 'c4533efd-240a-4b4b-86be-d6b13f098247'),
+                    'x-oy-username' => 'adminbutuhmoment',
+                    'x-api-key' => env('API_KEY', '78042200-e174-4490-a720-66d11340c4f4'),
                 ])->post('https://partner.oyindonesia.com/api/payment-routing/check-status', [
             'partner_trx_id' => $request->partner_trx_id,
             'send_callback' => true,
@@ -128,8 +130,8 @@ class OyController extends Controller {
 //        $data = $request->all();
 //        $response = Http::withHeaders([
 //                    'Content-Type' => 'application/json',
-//                    'x-oy-username' => 'bonophotobooth',
-//                    'x-api-key' => env('API_KEY', 'c4533efd-240a-4b4b-86be-d6b13f098247'),
+//                    'x-oy-username' => 'adminbutuhmoment',
+//                    'x-api-key' => env('API_KEY', '78042200-e174-4490-a720-66d11340c4f4'),
 //                ])->post('https://partner.oyindonesia.com/api/payment-routing/create-transaction', [
 //            "partner_user_id" => 'USR-20211117-1029',
 //            "partner_trx_id" => 'TRX-20211117-1030',
@@ -138,7 +140,7 @@ class OyController extends Controller {
 //            "receive_amount" => $this->data_setting->price,
 //            "list_enable_payment_method" => 'QRIS',
 //            "list_enable_sof" => 'QRIS',
-//            "va_display_name" => 'bonophotobooth',
+//            "va_display_name" => 'adminbutuhmoment',
 //            "trx_counter" => 1,
 //            "trx_expiration_time" => Carbon::now()->addMinute()
 //        ]);

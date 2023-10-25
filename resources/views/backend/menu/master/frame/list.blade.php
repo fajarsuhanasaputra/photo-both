@@ -47,7 +47,7 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($data as $dt)
+                                        {{-- @foreach ($data as $dt)
                                         @php($i = 1)
                                             <tr id="i++">
                                                 <td>{{ $loop->iteration }}</td>
@@ -74,7 +74,30 @@
                                                     </form>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach --}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="material-datatables">
+                                <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover"
+                                    cellspacing="0" width="100%" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Image Frame Left</th>
+                                            <th>Image Frame Right</th>
+                                            <th>Name</th>
+                                            <th>Size</th>
+                                            <th>Order Number</th>
+                                            <th>Uploaded</th>
+                                            <th class="disabled-sorting text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                     </tbody>
                                 </table>
                             </div>
@@ -85,3 +108,27 @@
         </div>
     </div>
 @stop
+@push('scripts')
+    <script type="text/javascript">
+        $(function(){
+            $('#yajra-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('color.index') }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'img_frame_left', name: 'img_frame_left' },
+                    { data: 'img_frame_right', name: 'img_frame_right' },
+                    { data: 'name', name: 'name' },
+                    { data: 'size', name: 'size' },
+                    { data: 'order_number', name: 'order_number' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'action', name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+    </script>
+@endpush

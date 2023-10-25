@@ -74,6 +74,7 @@
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Hex</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,6 +84,8 @@
                     </div>
                 </div>
             </div>
+            {{-- @include('backend.menu.master.color.modal-delete')
+            @include('backend.menu.master.color.modal-edit') --}}
             <!-- end col-md-12 -->
         </div>
         <!-- end row -->
@@ -100,6 +103,10 @@
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
                     { data: 'hex', name: 'hex' },
+                    { data: 'action', name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
                 ]
             });
         });

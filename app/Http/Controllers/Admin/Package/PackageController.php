@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Package;
 
-use App\Http\Controllers\Controller;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
 
 class PackageController extends Controller
 {
@@ -14,10 +15,22 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['data'] = Package::latest()->get();
-        return view('backend.menu.package.list', $data);
+        // $data['data'] = Package::first();
+        // dd($data);
+        if ($request->ajax()) {
+            $data = Package::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="'. route('package.show', $row->id).'" class="edit btn btn-primary btn-sm">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('backend.menu.package.list');
     }
 
     /**
@@ -62,7 +75,7 @@ class PackageController extends Controller
      */
     public function show($id)
     {
-        $data['data'] = Package::find($id);
+        $data['data'] = Package::findOrFail($id);
         return view('backend.menu.package.show', $data);
     }
 

@@ -40,7 +40,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($data as $index=>$dt)
+                                    {{-- @foreach($data as $index=>$dt)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $dt->package_name }}</td>
@@ -62,8 +62,29 @@
                                     @include('backend.menu.package.modal-delete')
                                     @include('backend.menu.package.modal-edit')
                                     @endforeach
-                                    @include('backend.menu.package.modal-add')
+                                    @include('backend.menu.package.modal-add') --}}
                                 </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="material-datatables">
+                            <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>PACKAGE NAME</th>
+                                        <th>PRICE</th>
+                                        <th>TOTAL</th>
+                                        <th>DESCRIPTION</th>
+                                        <th class="disabled-sorting text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -76,3 +97,25 @@
     </div>
 </div>
 @stop
+@push('scripts')
+    <script type="text/javascript">
+        $(function(){
+            $('#yajra-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('package.index') }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'package_name', name: 'package_name' },
+                    { data: 'price', name: 'price' },
+                    { data: 'total', name: 'total' },
+                    { data: 'description', name: 'description' },
+                    { data: 'action', name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+    </script>
+@endpush

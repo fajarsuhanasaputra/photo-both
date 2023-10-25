@@ -84,7 +84,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="material-datatables">
-                            <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            {{-- <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -101,7 +101,7 @@
 
                                 <tbody>
                                 </tbody>
-                            </table>
+                            </table> --}}
                         </div>
                     </div>
                 </div>

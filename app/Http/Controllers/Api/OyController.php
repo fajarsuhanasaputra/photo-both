@@ -48,8 +48,8 @@ class OyController extends Controller
         // $amount = $this->useVoucher($request->voucher_id, $request->price);
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'x-oy-username' => 'bonophotobooth',
-            'x-api-key' => env('API_KEY', '1d8ac0b9-e21f-4101-9035-49728d13c265'),
+            'x-oy-username' => 'adminbutuhmoment',
+            'x-api-key' => env('API_KEY', '78042200-e174-4490-a720-66d11340c4f4'),
         ])->post(env('API_PAYMENT_URL', 'https://api-stg.oyindonesia.com').'/api/payment-routing/create-transaction', [
             "partner_trx_id" => "TRX-" . Str::uuid(),
             "need_frontend" => false,
@@ -57,7 +57,7 @@ class OyController extends Controller
             "receive_amount" => $request->price,
             "list_enable_payment_method" => 'QRIS',
             "list_enable_sof" => 'QRIS',
-            "va_display_name" => 'bonophotobooth',
+            "va_display_name" => 'adminbutuhmoment',
             "trx_counter" => 1,
         ]);
 
@@ -69,8 +69,8 @@ class OyController extends Controller
         $request->validate(['partner_trx_id' => 'required']);
         $transaction = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'x-oy-username' => 'bonophotobooth',
-            'x-api-key' => env('API_KEY', '1d8ac0b9-e21f-4101-9035-49728d13c265'),
+            'x-oy-username' => 'adminbutuhmoment',
+            'x-api-key' => env('API_KEY', '78042200-e174-4490-a720-66d11340c4f4'),
         ])->post(env('API_PAYMENT_URL', 'https://api-stg.oyindonesia.com').'/api/payment-routing/check-status', [
             'partner_trx_id' => $request->partner_trx_id,
             // 'send_callback' => true,

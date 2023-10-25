@@ -37,7 +37,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($data as $index=>$dt)
+                                    {{-- @foreach($data as $index=>$dt)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $dt->booth_id }}</td>
@@ -54,9 +54,33 @@
                                             </a>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="material-datatables">
+                                <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover"
+                                    cellspacing="0" width="100%" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>NO</th>
+                                            <th>BOOTH-ID</th>
+                                            <th>NAME</th>
+                                            <th>ADDRESS</th>
+                                            <th>INCOME</th>
+                                            <th>CREATED</th>
+                                            <th class="disabled-sorting text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,3 +92,26 @@
     </div>
 </div>
 @stop
+@push('scripts')
+    <script type="text/javascript">
+        $(function(){
+            $('#yajra-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('color.index') }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'booth_id', name: 'booth_id' },
+                    { data: 'booth_name', name: 'booth_name' },
+                    { data: 'address', name: 'address' },
+                    { data: 'amount', name: 'amount' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'action', name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+    </script>
+@endpush

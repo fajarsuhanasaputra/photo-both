@@ -18,7 +18,10 @@ class ColorController extends Controller {
             $data = Color::all();
             return DataTables::of($data)
                 ->addIndexColumn()
-                
+                ->addColumn('action', function($row){
+                    $btn = '<a href="'. route('color.edit', $row->id).'" data-toggle="modal" data-target="#modalUpdate{{ $row->id }}" class="edit btn btn-primary btn-sm">Edit</a>';
+                    return $btn;
+                })
                 ->rawColumns(['action'])
                 ->make(true);
         }

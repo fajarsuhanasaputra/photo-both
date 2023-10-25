@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Booth;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Booth;
-use App\Models\Callback;
 use App\Models\Frame;
 use App\Models\Package;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-use Illuminate\Auth\Events\Validated;
-use Illuminate\Validation\Rule;
+use App\Models\Callback;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Validated;
 use Intervention\Image\Facades\Image;
 
 class BoothController extends Controller
@@ -22,22 +23,45 @@ class BoothController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['data'] = Booth::select(
-            'booths.id',
-            'booths.booth_id',
-            'booths.booth_name',
-            'booths.address',
-            'booths.created_at',
-            DB::raw("sum(callbacks.amount) as amount"),
-        )
-            ->leftjoin('callbacks', 'booths.id', '=', 'callbacks.booth_id')
-            ->groupBy(DB::raw("booths.booth_id"))
-            ->orderByRaw("booths.booth_id asc")
-            ->get();
 
-        return view('backend.menu.booth.list', $data);
+
+        if ($request->ajax()) {
+            $data = Booth::select(
+                'booths.id',
+                'booths.booth_id',
+                'booths.booth_name',
+                'booths.address',
+                'booths.created_at',
+                DB::raw("sum(callbacks.amount) as amount"),
+            )
+                ->leftjoin('callbacks', 'booths.id', '=', 'callbacks.booth_id')
+                ->groupBy(DB::raw("booths.booth_id"))
+                ->orderByRaw("booths.booth_id asc")
+                ->get();
+            $transformedData = $data->map(function ($item, $key) {
+                return [
+                    'DT_RowIndex' => $item->DT_RowIndex,
+                    'id' => $item->id,
+                    'booth_id' => $item->booth_id,
+                    'booth_name' => $item->booth_name,
+                    'address' => $item->address,
+                    'created_at' => $item->created_at,
+                    'amount' => $item->amount,
+                ];
+            });
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="' . route('booth.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('backend.menu.booth.list');
     }
 
     /**
@@ -123,7 +147,7 @@ class BoothController extends Controller
         $booth = new Booth;
         $view['data']['img_background'] = $booth->getImgBgAttribute($data->id . '/' . $data->img_background);
         $view['data']['img_logo'] = $booth->getImgLgAttribute($data->id . '/' . $data->img_logo);
-        
+
         return view('backend.menu.booth.show', $view);
     }
 
@@ -153,7 +177,7 @@ class BoothController extends Controller
         $booth = new Booth;
         $view['data']['img_background'] = $booth->getImgBgAttribute($data->id . '/' . $data->img_background);
         $view['data']['img_logo'] = $booth->getImgLgAttribute($data->id . '/' . $data->img_logo);
-        
+
         return view('backend.menu.booth.edit', $view);
     }
 
@@ -168,7 +192,7 @@ class BoothController extends Controller
     {
         $frame = $request->frame ? implode(',', $request->frame) : '';
         $package = $request->package ? implode(',', $request->package) : '';
-  
+
         $this->validate($request, [
             'booth_name' => ['required', Rule::unique('booths')->ignore($id)],
             // 'booth_id' => ['required', Rule::unique('booths')->ignore($request->booth_id)],

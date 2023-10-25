@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Http;
 
 class CallbackController extends BaseController
 {
+
+//stagging
+
     public function index(Request $request)
     {
         $data = Callback::all();
@@ -24,6 +27,8 @@ class CallbackController extends BaseController
 
     public function store(Request $request)
     {
+
+        //stagging
         $validator = Validator::make($request->all(), [
             'partner_trx_id' => 'required',
             'booth_id' => 'required',
@@ -36,8 +41,8 @@ class CallbackController extends BaseController
 
         $transaction = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'x-oy-username' => 'bonophotobooth',
-            'x-api-key' => env('API_KEY', '1d8ac0b9-e21f-4101-9035-49728d13c265'),
+            'x-oy-username' => 'adminbutuhmoment',
+            'x-api-key' => env('API_KEY', '78042200-e174-4490-a720-66d11340c4f4'),
         ])->post(env('API_PAYMENT_URL', 'https://api-stg.oyindonesia.com') . '/api/payment-routing/check-status', [
             'partner_trx_id' => $request->partner_trx_id,
             // 'send_callback' => true,

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin\Master;
 
-use App\Http\Controllers\Controller;
 use App\Models\Booth;
-use Illuminate\Http\Request;
 use App\Models\Frame;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class FrameController extends Controller
 {
@@ -19,12 +20,21 @@ class FrameController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = Frame::all();
-        $view['data'] = $data;
+        if ($request->ajax()) {
+            $data = Frame::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="' . route('frame.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        return view('backend.menu.master.frame.list', $view);
+        return view('backend.menu.master.frame.list');
     }
 
     public function create()

@@ -31,6 +31,7 @@ class TransactionController extends Controller
                 ->join('packages', 'callbacks.package_id', '=', 'packages.id')
                 ->select(
                     'callbacks.id as DT_RowIndex',
+                    'callbacks.id',
                     'callbacks.trx_id',
                     'booths.booth_name',
                     'packages.package_name',
@@ -51,6 +52,7 @@ class TransactionController extends Controller
             $transformedData = $data->map(function ($item, $key) {
                 return [
                     'DT_RowIndex' => $item->DT_RowIndex,
+                    'id' => $item->id,
                     'trx_id' => $item->trx_id,
                     'booth_name' => $item->booth_name,
                     'package_name' => $item->package_name,
@@ -76,12 +78,13 @@ class TransactionController extends Controller
 
             return DataTables::of($data)
             ->addIndexColumn()
-
+            ->addColumn('action', function($row){
+                $btn = '<a href="'. route('transaction.show', $row->id).'" class="edit btn btn-primary btn-sm">View</a>';
+                return $btn;
+            })
             ->rawColumns(['action'])
             ->make(true);
         }
-        
-
         return view('backend.menu.transaction.list');
     }
 
