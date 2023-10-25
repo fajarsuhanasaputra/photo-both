@@ -18,15 +18,20 @@ class ColorController extends Controller {
             $data = Color::all();
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('color', function($row){
+                    $clr = '<input type="color" value="' . $row->hex . '" disabled>';
+                    return $clr;
+                })
                 ->addColumn('action', function($row){
                     $btn = '<a href="'. route('color.edit', $row->id).'" class="edit btn btn-primary btn-sm">Edit</a>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'color']) // Added 'color' to rawColumns
                 ->make(true);
         }
         return view('backend.menu.master.color.list');
     }
+
 
     public function store(Request $request) {
         $request->validate([

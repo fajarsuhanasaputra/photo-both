@@ -22,6 +22,10 @@ class FrameController extends Controller
 
     public function index(Request $request)
     {
+        // $data = Frame::all();
+        // dd($data);
+        // dd(storage_path());
+        // dd(asset(""));
         if ($request->ajax()) {
             $data = Frame::all();
             return DataTables::of($data)
@@ -63,7 +67,8 @@ class FrameController extends Controller
             $photo = $request->file('img_frame_left');
             $ext = strtolower($photo->getClientOriginalExtension());
             $image_full_name = Str::slug($request->name) . '-left' . '.' . $ext;
-            $location = storage_path('app/public/images/frame') . '/' . $image_full_name;
+            $location = storage_path('images/frame') . '/' . $image_full_name;
+
             Image::make($photo)->save($location);
             $data['img_frame_left'] = $image_full_name;
             $data->save();
@@ -73,7 +78,7 @@ class FrameController extends Controller
             $photo = $request->file('img_frame_right');
             $ext = strtolower($photo->getClientOriginalExtension());
             $image_full_name = Str::slug($request->name) . '-right' . '.' . $ext;
-            $location = storage_path('app/public/images/frame') . '/' . $image_full_name;
+            $location = storage_path('images/frame') . '/' . $image_full_name;
             Image::make($photo)->save($location);
             $data['img_frame_right'] = $image_full_name;
             $data->save();
@@ -110,7 +115,7 @@ class FrameController extends Controller
             $photo = $request->file('img_frame_left');
             $ext = strtolower($photo->getClientOriginalExtension());
             $image_full_name = Str::slug($request->name) . '-left' . '.' . $ext;
-            $location = storage_path('app/public/images/frame') . '/' . $image_full_name;
+            $location = storage_path('images/frame') . '/' . $image_full_name;
             Image::make($photo)->save($location);
             $data['img_frame_left'] = $image_full_name;
             $data->save();
@@ -120,7 +125,7 @@ class FrameController extends Controller
             $photo = $request->file('img_frame_right');
             $ext = strtolower($photo->getClientOriginalExtension());
             $image_full_name = Str::slug($request->name) . '-right' . '.' . $ext;
-            $location = storage_path('app/public/images/frame') . '/' . $image_full_name;
+            $location = storage_path('images/frame') . '/' . $image_full_name;
             Image::make($photo)->save($location);
             $data['img_frame_right'] = $image_full_name;
             $data->save();
@@ -133,7 +138,7 @@ class FrameController extends Controller
     public function destroy($id)
     {
         $news = Frame::find($id);
-        //        $path = storage_path('app/public/images/frame') . '/' . $news->img_frame;
+        //        $path = storage_path('images/frame') . '/' . $news->img_frame;
         //        if ($news->img_frame == null) {
         //            $news->delete();
         //        } else {

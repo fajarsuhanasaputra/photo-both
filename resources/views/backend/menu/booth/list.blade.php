@@ -98,7 +98,7 @@
             $('#yajra-datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('color.index') }}",
+                ajax: "{{ route('booth.index') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'booth_id', name: 'booth_id' },
@@ -106,9 +106,12 @@
                     { data: 'address', name: 'address' },
                     { data: 'amount', name: 'amount' },
                     { data: 'created_at', name: 'created_at' },
-                    { data: 'action', name: 'action',
-                        orderable: false,
-                        searchable: false
+                    {
+                        data: '',
+                        name: '',
+                        render: (data, type, row) => {
+                            return `<a href="/booth/${row.id}" class="edit btn btn-primary btn-sm">View</a>`
+                        }
                     },
                 ]
             });

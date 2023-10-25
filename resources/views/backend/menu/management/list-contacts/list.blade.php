@@ -49,7 +49,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($data as $index=>$dt)
+                                    {{-- @foreach($data as $index=>$dt)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $dt->transaksi_id }}</td>
@@ -73,7 +73,7 @@
                                         </td>
 
                                     </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -84,11 +84,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="material-datatables">
-                            {{-- <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                            <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Image Print ID</th>
                                         <th>Transaksi ID</th>
                                         <th>Name</th>
                                         <th>Phone</th>
@@ -96,12 +95,13 @@
                                         <th>Kritik & Saran</th>
                                         <th>Booth Name</th>
                                         <th>Tanggal</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                 </tbody>
-                            </table> --}}
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,6 @@
                 ajax: "{{ route('list-contact.index') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    { data: 'image_print_id', name: 'list_contacts.image_print_id' },
                     { data: 'transaksi_id', name: 'list_contacts.transaksi_id' },
                     { data: 'name', name: 'list_contacts.name' },
                     { data: 'phone', name: 'list_contacts.phone' },
@@ -129,6 +128,13 @@
                     { data: 'kritik_saran', name: 'list_contacts.kritik_saran' },
                     { data: 'booth_name', name: 'booths.booth_name' },
                     { data: 'created_at', name: 'list_contacts.created_at' },
+                    {
+                        data: '',
+                        name: '',
+                        render: (data, type, row) => {
+                            return `<a href="/list-contact/${row.id}" class="edit btn btn-primary btn-sm">View</a>`
+                        }
+                    },
                 ]
 
             });

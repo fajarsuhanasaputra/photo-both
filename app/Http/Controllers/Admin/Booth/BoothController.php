@@ -29,6 +29,7 @@ class BoothController extends Controller
 
         if ($request->ajax()) {
             $data = Booth::select(
+                'booths.id as DT_RowIndex',
                 'booths.id',
                 'booths.booth_id',
                 'booths.booth_name',
@@ -53,10 +54,6 @@ class BoothController extends Controller
             });
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('booth.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    return $btn;
-                })
                 ->rawColumns(['action'])
                 ->make(true);
         }

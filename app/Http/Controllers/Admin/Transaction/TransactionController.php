@@ -78,21 +78,13 @@ class TransactionController extends Controller
 
             return DataTables::of($data)
             ->addIndexColumn()
-            // ->addColumn('action', function($row){
-            //     $btn = '<a href="'. route('transaction.show', $row->id).'" class="edit btn btn-primary btn-sm">View</a>';
-            //     return $btn;
-            // })
             ->rawColumns(['action'])
             ->make(true);
         }
         return view('backend.menu.transaction.list');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //

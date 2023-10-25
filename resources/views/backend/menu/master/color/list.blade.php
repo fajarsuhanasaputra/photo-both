@@ -74,6 +74,7 @@
                                         <th>Id</th>
                                         <th>Name</th>
                                         <th>Hex</th>
+                                        <th>Color</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -103,6 +104,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
                     { data: 'hex', name: 'hex' },
+                    { data: 'color', name: 'color' },
                     { data: 'action', name: 'action',
                         orderable: false,
                         searchable: false

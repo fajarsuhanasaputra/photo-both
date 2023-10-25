@@ -17,17 +17,17 @@ class Frame extends Model {
 
     public function getImgFrameLeftAttribute($value) {
         if ($value) {
-            return asset('storage/app/public/images/frame/' . $value);
+            return asset('storage/images/frame/' . $value);
         } else {
-            return asset('storage/app/public/images/no-image.png');
+            return asset('storage/images/no-image.png');
         }
     }
 
     public function getImgFrameRightAttribute($value) {
         if ($value) {
-            return asset('storage/app/public/images/frame/' . $value);
+            return asset('storage/images/frame/' . $value);
         } else {
-            return asset('storage/app/public/images/no-image.png');
+            return asset('storage/images/no-image.png');
         }
     }
 

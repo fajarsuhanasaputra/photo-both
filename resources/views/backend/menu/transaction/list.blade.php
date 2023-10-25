@@ -7,39 +7,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            {{-- <div class="row">
-                                {{ csrf_field()}}
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <label for="tgl-end" class="mb-3">Dari</label>
-                                    <input name="tgl-start" type="date" id="tgl-start" class="form-control" value="{{ $tgl_start }}" max="{{ $tgl_end }}" onchange="onStartChange()" />
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <label for="tgl-end" class="mb-3">Ke</label>
-                                    <input name="tgl-end" type="date" id="tgl-end" class="form-control" value="{{ $tgl_end }}" min="{{ $tgl_start }}" onchange="onEndChange()" />
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <label for="booth-select">Pilih Booth</label>
-                                    <select name="booth-select" id="booth-select" class="form-control">
-                                        @if($selected_booth == 'semua')
-                                        <option value="semua" selected>Semua</option>
-                                        @else
-                                        <option value="semua">Semua</option>
-                                        @endif
-                                        @foreach($booth as $index=>$dt)
-                                        @if($selected_booth == $dt->id)
-                                        <option value="{{  $dt->id }}" selected> {{ $dt->booth_name }}</option>
-                                        @else
-                                        <option value="{{  $dt->id }}"> {{ $dt->booth_name }}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <button type="submit" class="btn btn-success btn-sm mt-3">
-                                        Terapkan
-                                    </button>
-                                </div>
-                            </div> --}}
+                           git  --}}
                         </div>
                     </div>
                 </div>
