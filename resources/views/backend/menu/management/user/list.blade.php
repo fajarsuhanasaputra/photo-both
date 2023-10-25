@@ -38,7 +38,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach($users as $index=>$dt)
+                                    {{-- @foreach($users as $index=>$dt)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $dt->name ?? '' }}</td>
@@ -59,13 +59,13 @@
                                                 <a href="{{ route('user.edit', $dt->id) }}" class="btn btn-link btn-warning btn-just-icon edit" >
                                                     <i class="material-icons">dvr</i>
                                                 </a>
-                                                <button class="btn btn-link btn-danger btn-just-icon remove" onclick="return confirm('Are You Sure Delete This Data ?')"> 
+                                                <button class="btn btn-link btn-danger btn-just-icon remove" onclick="return confirm('Are You Sure Delete This Data ?')">
                                                     <i class="material-icons">delete</i>
                                                 </button>
                                             </form>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -73,6 +73,26 @@
                     <!-- end content-->
                 </div>
                 <!--  end card  -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="material-datatables">
+                            <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover"
+                                cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- end col-md-12 -->
         </div>
@@ -80,3 +100,24 @@
     </div>
 </div>
 @stop
+@push('scripts')
+    <script type="text/javascript">
+        $(function(){
+            $('#yajra-datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('user.index') }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'name', name: 'name' },
+                    { data: 'email', name: 'email' },
+                    { data: 'role', name: 'role' },
+                    { data: 'action', name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ]
+            });
+        });
+    </script>
+@endpush

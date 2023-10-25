@@ -23,7 +23,7 @@ class FrameController extends Controller
     public function index(Request $request)
     {
         // $data = Frame::all();
-        // dd($data);
+        // dd($data); 
         // dd(storage_path());
         // dd(asset(""));
         if ($request->ajax()) {

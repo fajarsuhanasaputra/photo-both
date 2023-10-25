@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Management;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Spatie\Permission\Models\Role;
-use App\Http\Requests\UsersUpdateRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UsersStoreRequest;
+use App\Http\Requests\UsersUpdateRequest;
 
 class UserController extends Controller {
 
@@ -15,10 +16,35 @@ class UserController extends Controller {
         $this->middleware('auth');
     }
 
-    public function index() {
-        $data ['users'] = User::all();
+    public function index(Request $request) {
 
-        return view('backend.menu.management.user.list', $data);
+        if ($request->ajax()) {
+            $data = User::all();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $button = '<a href="'. route('user.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>';
+                    return $button;
+                })
+                ->addColumn('role', function ($row) {
+                    $roles = $row->roles->pluck('name')->toArray();
+                    $badgeRoles = [];
+
+                    foreach ($roles as $role) {
+                        if ($role == 'Superadmin') {
+                            $badgeRoles[] = '<span class="badge badge-info">' . $role . '</span>';
+                        } else {
+                            $badgeRoles[] = '<span class="badge badge-success">' . $role . '</span>';
+                        }
+                    }
+
+                    return implode(' ', $badgeRoles);
+                })
+                ->rawColumns(['action', 'role'])
+                ->make(true);
+        }
+
+        return view('backend.menu.management.user.list');
     }
 
     public function create() {
