@@ -170,6 +170,7 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'trx_id', name: 'trx_id' },
+                    { data: 'trx_id', name: 'trx_id' },
                     { data: 'booth_name', name: 'booth_name' },
                     { data: 'package_name', name: 'package_name' },
                     { data: 'page', name: 'page' },
