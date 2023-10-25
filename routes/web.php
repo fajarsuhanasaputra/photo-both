@@ -48,7 +48,7 @@ Route::get('/pulsa', function () {
 Auth::routes();
 
 Route::get('/home', [DashboardController::class, 'index'])->name('home');
-Route::post('/home', [DashboardController::class, 'index'])->name('home');
+Route::post('/home-create', [DashboardController::class, 'index'])->name('home-create');
 
 //Profile//
 Route::get('/my-profile', [ProfileController::class, 'my_profile'])->name('my-profile');

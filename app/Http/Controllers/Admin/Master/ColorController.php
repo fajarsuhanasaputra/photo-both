@@ -19,7 +19,7 @@ class ColorController extends Controller {
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="'. route('color.edit', $row->id).'" data-toggle="modal" data-target="#modalUpdate{{ $row->id }}" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn = '<a href="'. route('color.edit', $row->id).'" class="edit btn btn-primary btn-sm">Edit</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -39,6 +39,13 @@ class ColorController extends Controller {
         $data->save();
         alert()->success('Data Berhasil Ditambah', 'Successfully')->toToast()->timerProgressBar()->autoClose(2000);
         return redirect(route('color.index'))->with(['success' => 'Data has been Added !']);
+    }
+
+    public function edit($id)
+    {
+        $data = Color::find($id);
+        $view['data'] = $data;
+        return view('backend.menu.master.color.edit', $view);
     }
 
     public function update(Request $request, $id) {

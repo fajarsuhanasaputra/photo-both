@@ -27,8 +27,8 @@ class FrameController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('frame.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    return $btn;
+                    $button = '<a href="'. route('frame.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>';
+                    return $button;
                 })
                 ->rawColumns(['action'])
                 ->make(true);

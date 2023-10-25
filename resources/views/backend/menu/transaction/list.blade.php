@@ -177,10 +177,7 @@
                     { data: 'created_at', name: 'created_at' },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'status', name: 'status' },
-                    { data: 'action', name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
+                   
                 ]
             });
         });
