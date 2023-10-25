@@ -178,7 +178,13 @@
                     { data: 'created_at', name: 'created_at' },
                     { data: 'updated_at', name: 'updated_at' },
                     { data: 'status', name: 'status' },
-                   
+                    {
+                        data: '',
+                        name: '',
+                        render: (data, type, row) => {
+                            return `<a href="/transaction/${row.id}" class="edit btn btn-primary btn-sm">View</a>`
+                        }
+                    },
                 ]
             });
         });
