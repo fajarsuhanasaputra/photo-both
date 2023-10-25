@@ -117,18 +117,9 @@
                 ajax: "{{ route('frame.index') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    {
-                        data: '',
-                        name: '',
-                        render: (data, type, row) => {
-                            return ''
-                        }
-                    }
                     { data: 'img_frame_left',
                         name: 'img_frame_left',
-                            render: function( data, type, full, meta ) {
-                            return "<img src=\"" + data + "\" height=\"50\"/>";
-                        }
+                            
                     },
                     { data: 'img_frame_right',
                         name: 'img_frame_right',
