@@ -93,11 +93,12 @@
         </div>
     </div>
 </div>
+
 @stop
 @push('scripts')
     <script type="text/javascript">
-        $(function(){
-            $('#yajra-datatable').DataTable({
+       $(function () {
+            var table = $('#yajra-datatable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('voucher.index') }}",
@@ -111,11 +112,33 @@
                     {
                         data: 'action',
                         name: 'action',
-                        orderable: true,
-                        searchable: true
+                        orderable: false, // Disable sorting for this column
+                        searchable: false   // Disable searching for this column
                     },
-
                 ]
+            });
+
+            $('#yajra-datatable').on('click', '.delete-voucher', function () {
+                var row = $(this).closest('tr');
+                var voucherId = table.row(row).data().id;
+
+                if (confirm("Are you sure you want to delete this voucher?")) {
+                    $.ajax({
+                        url: "{{ route('voucher.destroy', ['voucher' => 0]) }}".replace('0', voucherId),
+                        type: "POST",
+                        data: {
+                            "_method": 'DELETE',
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function (data) {
+                            table.ajax.reload();
+                            alert(data.message); // You can replace this with a more user-friendly notification
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
             });
         });
     </script>

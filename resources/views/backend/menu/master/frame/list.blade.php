@@ -83,8 +83,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="material-datatables">
-                                <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover"
-                                    cellspacing="0" width="100%" style="width:100%">
+                                <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -110,8 +109,10 @@
 @stop
 @push('scripts')
     <script type="text/javascript">
+        var table; // Define the table variable
+
         $(function(){
-            $('#yajra-datatable').DataTable({
+            table = $('#yajra-datatable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('frame.index') }}",
@@ -125,7 +126,7 @@
                     },
                     { data: 'img_frame_right',
                         name: 'img_frame_right',
-                            render: function( data, type, full, meta ) {
+                        render: function( data, type, full, meta ) {
                             return "<img src=\"" + data + "\" height=\"50\"/>";
                         }
                     },
@@ -139,6 +140,30 @@
                     },
                 ]
             });
+
+            $('#yajra-datatable').on('click', '.delete-frame', function () {
+                var row = $(this).closest('tr');
+                var frameId = table.row(row).data().id;
+
+                if (confirm("Are you sure you want to delete this frame?")) {
+                    $.ajax({
+                        url: "{{ route('frame.destroy', ['frame' => 0]) }}".replace('0', frameId),
+                        type: "POST",
+                        data: {
+                            "_method": 'DELETE',
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function (data) {
+                            table.ajax.reload();
+                            alert(data.message); // Display the success message
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
+            });
         });
     </script>
 @endpush
+

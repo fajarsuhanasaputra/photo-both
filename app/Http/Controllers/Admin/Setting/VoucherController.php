@@ -20,14 +20,21 @@ class VoucherController extends Controller {
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
-                    return $actionBtn;
+                    return '
+                        <form method="POST" action="' . route('voucher.destroy', ['voucher' => $row->id]) . '">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger delete-voucher">
+                                Delete
+                            </button>
+                        </form>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
         return view('backend.menu.settings.voucher.list');
     }
+
 
     public function coupon(Request $request) {
         $coupon = Voucher::where('code', $request->code)->first();

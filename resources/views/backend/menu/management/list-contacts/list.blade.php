@@ -129,15 +129,17 @@
                     { data: 'booth_name', name: 'booths.booth_name' },
                     { data: 'created_at', name: 'list_contacts.created_at' },
                     {
-                        data: '',
-                        name: '',
-                        render: (data, type, row) => {
-                            return `<a href="/list-contact/${row.id}" class="edit btn btn-primary btn-sm">View</a>`
+                        data: 'id',
+                        render: function (data, type, row) {
+                            var deleteForm = '<form method="POST" action="' + "{{ route('list-contact.destroy', ['list_contact' => ':id']) }}".replace(':id', row.id) + '">' +
+                                '@csrf @method("DELETE")' +
+                                '<button type="submit" class="btn btn-danger btn-sm delete-list-contact" onclick="return confirm(\'Are you sure you want to delete this list-contact?\')">Delete</button></form>';
+                            return '<a href="/list-contact/' + row.id + '" class="edit btn btn-primary btn-sm">View</a>' + deleteForm;
                         }
                     },
                 ]
-
             });
         });
+
     </script>
 @endpush

@@ -24,8 +24,16 @@ class PackageController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="'. route('package.show', $row->id).'" class="edit btn btn-primary btn-sm">View</a>';
-                    return $btn;
+                    return '
+                    <a href="'. route('package.show', $row->id) . '" class="show btn btn-primary btn-sm">View</a>
+                    <form method="POST" action="' . route('package.destroy', ['package' => $row->id]) . '">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-danger btn-sm package">
+                            Delete
+                        </button>
+                    </form>
+                ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);

@@ -22,17 +22,21 @@ class FrameController extends Controller
 
     public function index(Request $request)
     {
-        // $data = Frame::all();
-        // dd($data); 
-        // dd(storage_path());
-        // dd(asset(""));
         if ($request->ajax()) {
             $data = Frame::all();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $button = '<a href="'. route('frame.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    return $button;
+                    return '
+                        <a href="'. route('frame.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>
+                        <form method="POST" action="' . route('frame.destroy', ['frame' => $row->id]) . '">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger btn-sm delete-frame">
+                                Delete
+                            </button>
+                        </form>
+                    ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);

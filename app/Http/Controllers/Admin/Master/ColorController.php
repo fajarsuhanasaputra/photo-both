@@ -23,8 +23,16 @@ class ColorController extends Controller {
                     return $clr;
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="'. route('color.edit', $row->id).'" class="edit btn btn-primary btn-sm">Edit</a>';
-                    return $btn;
+                    return '
+                    <a href="'. route('color.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>
+                    <form method="POST" action="' . route('color.destroy', ['color' => $row->id]) . '">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-danger btn-sm delete-color">
+                            Delete
+                        </button>
+                    </form>
+                ';
                 })
                 ->rawColumns(['action', 'color']) // Added 'color' to rawColumns
                 ->make(true);

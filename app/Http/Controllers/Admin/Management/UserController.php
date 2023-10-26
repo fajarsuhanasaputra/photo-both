@@ -23,8 +23,16 @@ class UserController extends Controller {
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $button = '<a href="'. route('user.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    return $button;
+                    return '
+                    <a href="'. route('user.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>
+                    <form method="POST" action="' . route('user.destroy', ['user' => $row->id]) . '">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-danger btn-sm delete-user">
+                            Delete
+                        </button>
+                    </form>
+                ';
                 })
                 ->addColumn('role', function ($row) {
                     $roles = $row->roles->pluck('name')->toArray();
