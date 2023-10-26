@@ -109,10 +109,8 @@
                     {
                         data: 'id', // Assuming 'id' is the key for identifying the row
                         render: function (data, type, row) {
-                            var deleteForm = '<form method="POST" action="' + "{{ route('booth.destroy', ['booth' => ':id']) }}".replace(':id', row.id) + '">' +
-                                '@csrf @method("DELETE")' +
-                                '<button type="submit" class="btn btn-danger btn-sm delete-booth" onclick="return confirm(\'Are you sure you want to delete this booth?\')">Delete</button></form>';
-                            return '<a href="/booth/' + row.id + '" class="edit btn btn-primary btn-sm">View</a>' + deleteForm;
+                            var viewForm = '<a href="/booth/' + row.id + '" class="edit btn btn-primary btn-sm">View</a>';
+                            return '<a href="/booth/' + row.id + '/edit' + ' " class="edit btn btn-warning btn-sm">Edit</a>' + viewForm;
                         }
                     },
                 ]
