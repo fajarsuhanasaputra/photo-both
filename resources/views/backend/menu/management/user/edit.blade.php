@@ -62,8 +62,8 @@
 
                                 <div class="col-md-6 col-sm-12">
                                     <div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }}">
-                                        <label>Role : </label>
-                                        <select name="roles[]" id="roles" class="selectpicker" data-style="btn btn-success btn-round btn-sm" title="Select Role" required>
+                                        <label for="password" class="bmd-label-floating"> Role *</label>
+                                        <select name="roles[]" id="roles" class="form-control role" data-style="btn btn-success btn-round btn-sm" title="Select Role" required>
                                             @foreach($role as $id => $roles)
                                             <option value="{{ $id }}" {{ (in_array($id, old('roles', [])) || isset($user) && $user->roles()->pluck('name', 'id')->contains($id)) ? 'selected' : '' }}>{{ $roles }}</option>
                                             @endforeach

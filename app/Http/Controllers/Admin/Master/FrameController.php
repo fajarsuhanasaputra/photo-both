@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Master;
 
+use Carbon\Carbon;
 use App\Models\Booth;
 use App\Models\Frame;
 use Illuminate\Support\Str;
@@ -28,17 +29,27 @@ class FrameController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     return '
-                        <a href="'. route('frame.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>
-                        <form method="POST" action="' . route('frame.destroy', ['frame' => $row->id]) . '">
+                    <div class="text-right">
+                        <a href="'. route('frame.edit', $row->id) . '" class="edit btn btn-warning btn-sm">
+                            <i class="material-icons">edit_square</i>
+                        </a>
+                        <form method="POST" action="' . route('frame.destroy', ['frame' => $row->id]) . '" class="delete-form">
                             ' . csrf_field() . '
                             ' . method_field('DELETE') . '
                             <button type="submit" class="btn btn-danger btn-sm delete-frame">
-                                Delete
+                                <i class="material-icons">delete</i>
                             </button>
                         </form>
+                    </div>
                     ';
                 })
                 ->rawColumns(['action'])
+                ->editColumn('created_at', function ($row) {
+                    return [
+                        'display' => Carbon::parse($row->created_at)->format('d-m-Y H:i:s'),
+                        'timestamp' => $row->created_at->timestamp
+                    ];
+                })
                 ->make(true);
         }
 

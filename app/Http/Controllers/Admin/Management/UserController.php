@@ -24,14 +24,18 @@ class UserController extends Controller {
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     return '
-                    <a href="'. route('user.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>
-                    <form method="POST" action="' . route('user.destroy', ['user' => $row->id]) . '">
-                        ' . csrf_field() . '
-                        ' . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-danger btn-sm delete-user">
-                            Delete
-                        </button>
-                    </form>
+                    <div class="text-right">
+                        <a href="'. route('user.edit', $row->id) . '" class="edit btn btn-warning btn-sm">
+                            <i class="material-icons">edit_square</i>
+                        </a>
+                        <form method="POST" action="' . route('user.destroy', ['user' => $row->id]) . '" class="delete-form">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger btn-sm delete-user">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </form>
+                    </div>
                 ';
                 })
                 ->addColumn('role', function ($row) {
@@ -57,6 +61,7 @@ class UserController extends Controller {
 
     public function create() {
         $roles ['roles'] = Role::get()->pluck('name', 'name');
+        // dd($roles);
         return view('backend.menu.management.user.add', $roles);
     }
 

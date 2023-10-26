@@ -24,14 +24,18 @@ class ColorController extends Controller {
                 })
                 ->addColumn('action', function($row){
                     return '
-                    <a href="'. route('color.edit', $row->id) . '" class="edit btn btn-primary btn-sm">Edit</a>
-                    <form method="POST" action="' . route('color.destroy', ['color' => $row->id]) . '">
-                        ' . csrf_field() . '
-                        ' . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-danger btn-sm delete-color">
-                            Delete
-                        </button>
-                    </form>
+                    <div class="text-left">
+                        <a href="'. route('color.edit', $row->id) . '" class="edit btn btn-warning btn-sm">
+                            <i class="material-icons">edit_square</i>
+                        </a>
+                        <form method="POST" action="' . route('color.destroy', ['color' => $row->id]) . '" class="delete-form">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger btn-sm delete-color">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </form>
+                    </div>
                 ';
                 })
                 ->rawColumns(['action', 'color']) // Added 'color' to rawColumns
@@ -40,6 +44,9 @@ class ColorController extends Controller {
         return view('backend.menu.master.color.list');
     }
 
+    public function create(){
+        return view('backend.menu.master.color.add');
+    }
 
     public function store(Request $request) {
         $request->validate([

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Management;
 
-use App\Models\ListContact;
+use Carbon\Carbon;
 //use Illuminate\Http\Request;
+use App\Models\ListContact;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +55,12 @@ class ListContactsController extends Controller
             });
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->editColumn('created_at', function ($row) {
+                    return [
+                        'display' => Carbon::parse($row->created_at)->format('d-m-Y H:i:s'),
+                        'timestamp' => $row->created_at->timestamp
+                    ];
+                })
                 ->rawColumns(['action'])
                 ->make(true);
             }

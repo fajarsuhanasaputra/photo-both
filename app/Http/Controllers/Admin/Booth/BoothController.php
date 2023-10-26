@@ -54,6 +54,12 @@ class BoothController extends Controller
             });
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->editColumn('created_at', function ($row) {
+                    return [
+                        'display' => Carbon::parse($row->created_at)->format('d-m-Y'),
+                        'timestamp' => $row->created_at->timestamp
+                    ];
+                })
                 ->rawColumns(['action'])
                 ->make(true);
         }

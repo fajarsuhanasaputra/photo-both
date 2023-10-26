@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Transaction;
 
+use Carbon\Carbon;
 use App\Models\Booth;
 use App\Models\Callback;
 use App\Models\Transaction;
@@ -64,23 +65,34 @@ class TransactionController extends Controller
                 ];
             });
 
-            $booth = Booth::latest()->get();
-            $data['booth'] = $booth;
-
-            if ($booth_name == 'semua' || $booth_name == '') {
-                $data['selected_booth'] = 'semua';
-            } else {
-                $data['selected_booth'] = $booth_name;
-            }
-
-            $data['tgl_start'] = $tgl_start;
-            $data['tgl_end'] = $tgl_end;
-
             return DataTables::of($data)
             ->addIndexColumn()
+            ->editColumn('created_at', function ($row) {
+                return [
+                    'display' => Carbon::parse($row->created_at)->format('d-m-Y H:i:s'),
+                    'timestamp' => $row->created_at->timestamp
+                ];
+            })
+            ->editColumn('updated_at', function ($row) {
+                return [
+                    'display' => Carbon::parse($row->updated_at)->format('d-m-Y H:i:s'),
+                    'timestamp' => $row->updated_at->timestamp
+                ];
+            })
             ->rawColumns(['action'])
             ->make(true);
         }
+        // $booth = Booth::latest()->get();
+        // $data['booth'] = $booth;
+
+        // if ($booth_name == 'semua' || $booth_name == '') {
+        //     $data['selected_booth'] = 'semua';
+        // } else {
+        //     $data['selected_booth'] = $booth_name;
+        // }
+
+        // $data['tgl_start'] = $tgl_start;
+        // $data['tgl_end'] = $tgl_end;
         return view('backend.menu.transaction.list');
     }
 

@@ -25,14 +25,21 @@ class PackageController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     return '
-                    <a href="'. route('package.show', $row->id) . '" class="show btn btn-primary btn-sm">View</a>
-                    <form method="POST" action="' . route('package.destroy', ['package' => $row->id]) . '">
-                        ' . csrf_field() . '
-                        ' . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-danger btn-sm package">
-                            Delete
-                        </button>
-                    </form>
+                    <div class="text-right">
+                        <a href="'. route('package.show', $row->id) . '" class="show btn btn-primary btn-sm">
+                            <i class="material-icons">info</i>
+                        </a>
+                        <a href="'. route('package.edit', $row->id) . '" class="edit btn btn-warning btn-sm">
+                            <i class="material-icons">edit_square</i>
+                        </a>
+                        <form method="POST" action="' . route('package.destroy', ['package' => $row->id]) . '" class="delete-form">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger btn-sm package">
+                                <i class="material-icons ">delete</i>
+                            </button>
+                        </form>
+                    </div>
                 ';
                 })
                 ->rawColumns(['action'])
@@ -48,7 +55,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.menu.package.add');
     }
 
     /**
@@ -95,7 +102,9 @@ class PackageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Package::find($id);
+        $view['data'] = $data;
+        return view('backend.menu.package.edit', $view);
     }
 
     /**

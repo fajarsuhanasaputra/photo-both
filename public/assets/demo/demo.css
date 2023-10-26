@@ -53,3 +53,15 @@
 .ps__rail-x, .ps__rail-y {
     display: none !important;
 }
+
+.delete-form {
+    display: inline-block;
+    margin-right: 10px; /* Adjust the margin as needed for spacing */
+}
+.delete-form-render{
+    display: inline-block;
+    margin-right: 100px;
+}
+.role{
+    margin-top: 34px;
+}

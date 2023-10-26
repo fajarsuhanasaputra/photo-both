@@ -21,13 +21,19 @@ class VoucherController extends Controller {
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     return '
-                        <form method="POST" action="' . route('voucher.destroy', ['voucher' => $row->id]) . '">
+                    <div class="text-right">
+                        <a href="' . route('voucher.edit', $row->id) . '" class="edit  btn btn-warning btn-sm">
+                            <i class="material-icons">edit_square</i>
+                        </a>
+                        <form method="POST" action="' . route('voucher.destroy', ['voucher' => $row->id]) . '" class="delete-form">
                             ' . csrf_field() . '
                             ' . method_field('DELETE') . '
-                            <button type="submit" class="btn btn-danger delete-voucher">
-                                Delete
+                            <button type="submit" class="btn btn-danger btn-sm  delete-voucher">
+                                <i class="material-icons ">delete</i>
                             </button>
-                        </form>';
+                        </form>
+                    </div>
+                    ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -50,6 +56,10 @@ class VoucherController extends Controller {
         return redirect()->back()->with('success_message', 'Coupon has been applied!');
     }
 
+    public function create(){
+        return view('backend.menu.settings.voucher.add');
+    }
+
     public function store(Request $request) {
         $request->validate([
             'code' => 'required',
@@ -66,6 +76,13 @@ class VoucherController extends Controller {
         $data->save();
         alert()->success('Data Berhasil Ditambah', 'Successfully')->toToast()->timerProgressBar()->autoClose(2000);
         return redirect(route('voucher.index'))->with(['success' => 'Data has been Added !']);
+    }
+
+    public function edit($id)
+    {
+        $data = Voucher::find($id);
+        $view['data'] = $data;
+        return view('backend.menu.settings.voucher.edit', $view);
     }
 
     public function update(Request $request, $id) {

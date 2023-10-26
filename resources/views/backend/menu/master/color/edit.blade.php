@@ -20,7 +20,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="exampleprice" class="bmd-label-floating"> Title*</label>
+                                        <label for="exampleprice" class="bmd-label-floating"> Name*</label>
                                         <input type="text" class="form-control" required name="name" value="{{ $data->name }}">
                                         @if($errors->has('name'))
                                         <em class="invalid-feedback">
@@ -30,8 +30,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="exampleName" class="bmd-label-floating"> Size*</label>
-                                        <input type="text" name="hex" id="exampleName" class="form-control" value="{{ $data->hex }}">
+                                        <label for="exampleName" class="bmd-label-floating"> Hex*</label>
+                                        <input type="color" name="hex" id="exampleName" class="form-control" value="{{ $data->hex }}">
                                         @if($errors->has('hex'))
                                         <em class="invalid-feedback">
                                             {{ $errors->first('hex') }}
@@ -45,7 +45,7 @@
                         <hr>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-success btn-sm"><i class="material-icons">save</i> Save</button>
-                            <a href="{{ route('frame.index') }}" class="btn btn-sm btn-danger"><i class="material-icons">west</i> Cancel</a>
+                            <a href="{{ route('color.index') }}" class="btn btn-sm btn-danger"><i class="material-icons">west</i> Cancel</a>
                         </div>
                     </div>
                 </form>

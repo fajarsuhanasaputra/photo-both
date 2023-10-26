@@ -10,8 +10,7 @@
                                 <i class="material-icons">add_circle</i> Image Frame</a>
                         </div>
                     </div>
-                    <div class="card">
-
+                    {{-- <div class="card">
                         <div class="card-header card-header-primary card-header-icon">
                             <div class="card-icon">
                                 <i class="material-icons">wallpaper</i>
@@ -47,7 +46,7 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        {{-- @foreach ($data as $dt)
+                                        @foreach ($data as $dt)
                                         @php($i = 1)
                                             <tr id="i++">
                                                 <td>{{ $loop->iteration }}</td>
@@ -74,13 +73,19 @@
                                                     </form>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="card">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">wallpaper</i>
+                            </div>
+                            <h4 class="card-title">List Frame</h4>
+                        </div>
                         <div class="card-body">
                             <div class="material-datatables">
                                 <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -133,7 +138,13 @@
                     { data: 'name', name: 'name' },
                     { data: 'size', name: 'size' },
                     { data: 'order_number', name: 'order_number' },
-                    { data: 'created_at', name: 'created_at' },
+                    {
+                        name: 'created_at.timestamp',
+                        data: {
+                            _: 'created_at.display',
+                            sort: 'created_at.timestamp'
+                        }
+                    },
                     { data: 'action', name: 'action',
                         orderable: false,
                         searchable: false

@@ -12,7 +12,7 @@
                         </button>
                     </form>
                 </div>
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">contact_mail</i>
@@ -49,7 +49,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    {{-- @foreach($data as $index=>$dt)
+                                    @foreach($data as $index=>$dt)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $dt->transaksi_id }}</td>
@@ -73,15 +73,21 @@
                                         </td>
 
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <!-- end content-->
-                </div>
+                </div> --}}
                 <!--  end card  -->
                 <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">contact_mail</i>
+                        </div>
+                        <h4 class="card-title">List Forms</h4>
+                    </div>
                     <div class="card-body">
                         <div class="material-datatables">
                             <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -127,14 +133,20 @@
                     { data: 'email', name: 'list_contacts.email' },
                     { data: 'kritik_saran', name: 'list_contacts.kritik_saran' },
                     { data: 'booth_name', name: 'booths.booth_name' },
-                    { data: 'created_at', name: 'list_contacts.created_at' },
+                    {
+                        name: 'created_at.timestamp',
+                        data: {
+                            _: 'created_at.display',
+                            sort: 'created_at.timestamp'
+                        }
+                    },
                     {
                         data: 'id',
                         render: function (data, type, row) {
-                            var deleteForm = '<form method="POST" action="' + "{{ route('list-contact.destroy', ['list_contact' => ':id']) }}".replace(':id', row.id) + '">' +
+                            var deleteForm = '<form method="POST" class="delete-form-render" action="' + "{{ route('list-contact.destroy', ['list_contact' => ':id']) }}".replace(':id', row.id) + '">' +
                                 '@csrf @method("DELETE")' +
-                                '<button type="submit" class="btn btn-danger btn-sm delete-list-contact" onclick="return confirm(\'Are you sure you want to delete this list-contact?\')">Delete</button></form>';
-                            return '<a href="/list-contact/' + row.id + '" class="edit btn btn-primary btn-sm">View</a>' + deleteForm;
+                                '<button type="submit" class="btn btn-danger btn-sm delete-list-contact" onclick="return confirm(\'Are you sure you want to delete this list-contact?\')"><i class="material-icons">delete</i></button></form>';
+                            return '<a href="/list-contact/' + row.id + '" class="edit btn btn-primary btn-sm"><i class="material-icons">info</i></a>' + deleteForm;
                         }
                     },
                 ]

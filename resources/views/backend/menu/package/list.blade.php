@@ -5,11 +5,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text-right">
-                    <button type="button" class="btn btn-round btn-success btn-sm" data-toggle="modal" data-target="#modalTambah">
-                        <i class="material-icons">add_circle</i> Data
-                    </button>
+                    <a href="{{ route('package.create') }}" class="btn btn-sm btn-round btn-success">
+                        <i class="material-icons">add_circle</i> Package</a>
                 </div>
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">percentage</i>
@@ -40,7 +39,7 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    {{-- @foreach($data as $index=>$dt)
+                                    @foreach($data as $index=>$dt)
                                     <tr>
                                         <td>{{ ++$index }}</td>
                                         <td>{{ $dt->package_name }}</td>
@@ -62,13 +61,19 @@
                                     @include('backend.menu.package.modal-delete')
                                     @include('backend.menu.package.modal-edit')
                                     @endforeach
-                                    @include('backend.menu.package.modal-add') --}}
+                                    @include('backend.menu.package.modal-add')
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">percentage</i>
+                        </div>
+                        <h4 class="card-title">List Package</h4>
+                    </div>
                     <div class="card-body">
                         <div class="material-datatables">
                             <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -109,7 +114,9 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'package_name', name: 'package_name' },
-                    { data: 'price', name: 'price' },
+                    { data: 'price', name: 'price',
+                        render: $.fn.dataTable.render.number( '.', ',', 0, 'Rp ' )
+                    },
                     { data: 'total', name: 'total' },
                     { data: 'description', name: 'description' },
                     { data: 'action', name: 'action',

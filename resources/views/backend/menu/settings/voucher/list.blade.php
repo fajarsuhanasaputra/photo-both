@@ -5,18 +5,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text-right">
-                    <button type="button" class="btn btn-round btn-success btn-sm" data-toggle="modal" data-target="#modalTambah">
-                        <i class="material-icons">add_circle</i> Data
-                    </button>
+                    <a href="{{ route('voucher.create') }}" class="btn btn-sm btn-round btn-success">
+                        <i class="material-icons">add_circle</i> Voucher</a>
                 </div>
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">percent</i>
                         </div>
                         <h4 class="card-title">List Voucher</h4>
                     </div>
-                    {{-- <div class="card-body">
+                    <div class="card-body">
                         <div class="material-datatables">
                             <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                 <thead>
@@ -66,9 +65,15 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> --}}
-                </div>
+                    </div>
+                </div> --}}
                 <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">percent</i>
+                        </div>
+                        <h4 class="card-title">List Voucher</h4>
+                    </div>
                     <div class="card-body">
                         <div class="material-datatables">
                             <table id="yajra-datatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
