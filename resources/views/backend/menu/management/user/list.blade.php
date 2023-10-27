@@ -104,6 +104,25 @@
         <!-- end row -->
     </div>
 </div>
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this user?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
 @push('scripts')
     <script type="text/javascript">
@@ -123,27 +142,24 @@
                     },
                 ]
             });
-            $('#yajra-datatable').on('click', '.delete-user', function () {
-                var row = $(this).closest('tr');
-                var voucherId = table.row(row).data().id;
+            $('#yajra-datatable').on('click', '.delete-user', function (e) {
+                e.preventDefault(); // Prevent the default form submission
 
-                if (confirm("Are you sure you want to delete this user?")) {
-                    $.ajax({
-                        url: "{{ route('user.destroy', ['user' => 0]) }}".replace('0', voucherId),
-                        type: "POST",
-                        data: {
-                            "_method": 'DELETE',
-                            "_token": "{{ csrf_token() }}"
-                        },
-                        success: function (data) {
-                            table.ajax.reload();
-                            alert(data.message); // You can replace this with a more user-friendly notification
-                        },
-                        error: function (data) {
-                            console.log('Error:', data);
-                        }
-                    });
-                }
+                var deleteForm = $(this).closest('.delete-form');
+                var deleteUrl = deleteForm.attr('action');
+
+                $('#confirmDeleteModal').modal('show');
+
+                // When the user confirms the delete, perform the delete action
+                $('#confirmDelete').on('click', function () {
+                    deleteForm.submit(); // Submit the delete form
+                    $('#confirmDeleteModal').modal('hide');
+                });
+            });
+
+            // Close the modal when the user clicks "Cancel"
+            $('#confirmDeleteModal').on('hidden.bs.modal', function () {
+                $('#confirmDelete').off('click'); // Remove the click event to prevent multiple submissions
             });
         });
     </script>

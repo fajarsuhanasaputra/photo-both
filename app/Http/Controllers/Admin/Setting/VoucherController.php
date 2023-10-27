@@ -33,6 +33,7 @@ class VoucherController extends Controller {
                             </button>
                         </form>
                     </div>
+                    
                     ';
                 })
                 ->rawColumns(['action'])

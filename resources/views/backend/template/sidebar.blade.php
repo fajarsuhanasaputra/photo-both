@@ -1,10 +1,10 @@
 <div class="sidebar" data-color="rose" data-background-color="black" data-image="{{ (asset('assets/img/sidebar-1.jpg')) }}">
     <div class="logo">
         <a href="#" class="simple-text logo-mini">
-            MPB
+            BM
         </a>
         <a href="#" class="simple-text logo-normal">
-            MATOAPHOTOBOOTH
+            BUTUHMOMENT
         </a>
     </div>
     <div class="sidebar-wrapper">

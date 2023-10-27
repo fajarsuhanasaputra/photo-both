@@ -35,7 +35,7 @@ class PackageController extends Controller
                         <form method="POST" action="' . route('package.destroy', ['package' => $row->id]) . '" class="delete-form">
                             ' . csrf_field() . '
                             ' . method_field('DELETE') . '
-                            <button type="submit" class="btn btn-danger btn-sm package">
+                            <button type="submit" class="btn btn-danger btn-sm delete-package">
                                 <i class="material-icons ">delete</i>
                             </button>
                         </form>

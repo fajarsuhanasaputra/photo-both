@@ -29,7 +29,7 @@
             <script>
                 document.write(new Date().getFullYear())
             </script>
-            Matoaphotobooth
+            ButuhMoment
         </div>
     </div>
 </footer>
