@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Free extends Model
 {
     use HasFactory;
-
+    protected $table = 'free';
     protected $guarded = [];
 
     public function getImgBgAttribute($value)

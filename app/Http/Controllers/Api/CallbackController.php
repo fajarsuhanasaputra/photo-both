@@ -63,16 +63,6 @@ class CallbackController extends BaseController
             'amount' => $tr['received_amount'],
             'payload' => $tr,
         ]);
-
-        // $call = new Callback();
-        // $call->status = $status;
-        // $call->trx_id = $tr['trx_id'];
-        // $call->booth_id = $request->booth_id; // booth
-        // $call->package_id = $request->package_id; // paket
-        // $call->page = "SLIDE"; // first page is slide
-        // $call->amount = $tr['received_amount'];
-        // $call->payload = $tr;
-        // $call->save();
         $call['status'] = $status;
         return response()->json($call, 200);
     }

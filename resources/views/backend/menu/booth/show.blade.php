@@ -57,6 +57,12 @@
                                         <input type="text" disabled class="form-control" value="{{ $data->pricing }}">
                                     </div>
                                 </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label> Retake </label><br>
+                                        <input type="text" disabled class="form-control" value="{{ $data->retake }}">
+                                    </div>
+                                </div>
 
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
@@ -80,16 +86,28 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-3 col-sm-3">
                                     <div class="form-group">
-                                        <img src="{{ $data->img_background }}" alt="..." style="width:75%;"><br>
+                                        <img src="{{ $data->img_background }}" alt="..." style="width:25%;"><br>
                                         <label>Image Background</label>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6 col-sm-6">
+                                <div class="col-md-3 col-sm-3">
                                     <div class="form-group">
-                                        <img src="{{ $data->img_logo }}" alt="..." style="width:75%;"><br>
+                                        <img src="{{ $data->img_background2 }}" alt="..." style="width:25%;"><br>
+                                        <label>Image Background 2</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="form-group">
+                                        <img src="{{ $data->img_background3 }}" alt="..." style="width:25%;"><br>
+                                        <label>Image Background 3</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="form-group">
+                                        <img src="{{ $data->img_logo }}" alt="..." style="width:25%;"><br>
                                         <label>Image Logo</label>
                                     </div>
                                 </div>

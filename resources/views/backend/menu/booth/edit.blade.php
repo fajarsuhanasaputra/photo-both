@@ -79,6 +79,21 @@
                                                             </label>
                                                         </div>
                                                     @endforeach
+
+                                                    <label for="subtitle" class="bmd-label-floating"> Retake</label>
+                                                    @foreach ($retake as $rt)
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="{{ $rt }}" name="retake"
+                                                                    {{ $data->retake === $rt ? 'checked' : '' }}>
+                                                                {{ $rt }}
+                                                                <span class="circle">
+                                                                    <span class="check"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
 

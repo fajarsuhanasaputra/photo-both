@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin\Transaction;
 
 use Carbon\Carbon;
-use App\Models\Booth;
-use App\Models\Callback;
-use App\Models\Transaction;
+use App\Models\Free;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 
-class TransactionController extends Controller
+class FreeTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +17,6 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
             $booth_name = $request->input('booth-select', '');
             $tgl_start = $request->input('tgl-start', '');
@@ -29,27 +26,26 @@ class TransactionController extends Controller
                 $booth_name = '';
             }
 
-            $data = Callback::join('booths', 'callbacks.booth_id', '=', 'booths.id')
-                ->join('packages', 'callbacks.package_id', '=', 'packages.id')
+            $data = Free::join('booths', 'free.booth_id', '=', 'booths.id')
+                ->join('packages', 'free.package_id', '=', 'packages.id')
                 ->select(
-                    'callbacks.id as DT_RowIndex',
-                    'callbacks.id',
-                    'callbacks.trx_id',
+                    'free.id as DT_RowIndex',
+                    'free.id',
+                    'free.trx_id',
                     'booths.booth_name',
                     'packages.package_name',
-                    'callbacks.page',
-                    'callbacks.payload',
-                    'callbacks.amount',
-                    'callbacks.created_at',
-                    'callbacks.updated_at',
-                    'callbacks.status',
+                    'free.page',
+                    'free.amount',
+                    'free.created_at',
+                    'free.updated_at',
+                    'free.status',
                 )->when($tgl_start, function ($query, $tgl_start) {
-                    $query->where('callbacks.created_at', '>=', $tgl_start);
+                    $query->where('free.created_at', '>=', $tgl_start);
                 })->when($tgl_end, function ($query, $tgl_end) {
-                    $query->where('callbacks.created_at', '<=', $tgl_end . ' 23:59:59');
+                    $query->where('free.created_at', '<=', $tgl_end . ' 23:59:59');
                 })->when($booth_name, function ($query, $booth_name) {
-                    $query->where('callbacks.booth_id', $booth_name);
-                })->orderBy('callbacks.created_at', 'desc')
+                    $query->where('free.booth_id', $booth_name);
+                })->orderBy('free.created_at', 'desc')
                 ->get();
 
             $transformedData = $data->map(function ($item, $key) {
@@ -60,7 +56,6 @@ class TransactionController extends Controller
                     'booth_name' => $item->booth_name,
                     'package_name' => $item->package_name,
                     'page' => $item->page,
-                    'payload' => $item->payload,
                     'amount' => $item->amount,
                     'created_at' => $item->created_at,
                     'updated_at' => $item->updated_at,
@@ -71,7 +66,7 @@ class TransactionController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($row) {
-                    return [ 
+                    return [
                         'display' => Carbon::parse($row->created_at)->format('d-m-Y H:i:s'),
                         'timestamp' => $row->created_at->timestamp
                     ];
@@ -85,21 +80,15 @@ class TransactionController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        // $booth = Booth::latest()->get();
-        // $data['booth'] = $booth;
-
-        // if ($booth_name == 'semua' || $booth_name == '') {
-        //     $data['selected_booth'] = 'semua';
-        // } else {
-        //     $data['selected_booth'] = $booth_name;
-        // }
-
-        // $data['tgl_start'] = $tgl_start;
-        // $data['tgl_end'] = $tgl_end;
-        return view('backend.menu.transaction.list');
+        return view('backend.menu.freetransaction.list');
     }
 
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         //
@@ -113,48 +102,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $booth_name = $request->input('booth-select', '');
-        $tgl_start = $request->input('tgl-start', '');
-        $tgl_end = $request->input('tgl-end', '');
-
-        if ($booth_name == 'semua') {
-            $booth_name = '';
-        }
-
-        $data['data'] = Callback::join('booths', 'callbacks.booth_id', '=', 'booths.id')
-            ->join('packages', 'callbacks.package_id', '=', 'packages.id')
-            ->select(
-                'callbacks.id',
-                'callbacks.trx_id',
-                'booths.booth_name',
-                'packages.package_name',
-                'callbacks.page',
-                'callbacks.amount',
-                'callbacks.created_at',
-                'callbacks.updated_at',
-                'callbacks.status',
-            )->when($tgl_start, function ($query, $tgl_start) {
-                $query->where('callbacks.created_at', '>=', $tgl_start);
-            })->when($tgl_end, function ($query, $tgl_end) {
-                $query->where('callbacks.created_at', '<=', $tgl_end . ' 23:59:59');
-            })->when($booth_name, function ($query, $booth_name) {
-                $query->where('callbacks.booth_id', $booth_name);
-            })->orderBy('callbacks.updated_at', 'desc')
-            ->get();
-
-        $booth = Booth::latest()->get();
-        $data['booth'] = $booth;
-
-        if ($booth_name == 'semua' || $booth_name == '') {
-            $data['selected_booth'] = 'semua';
-        } else {
-            $data['selected_booth'] = $booth_name;
-        }
-
-        $data['tgl_start'] = $tgl_start;
-        $data['tgl_end'] = $tgl_end;
-
-        return view('backend.menu.transaction.list', $data);
+        //
     }
 
     /**
@@ -165,8 +113,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $data['data'] = Callback::find($id);
-        return view('backend.menu.transaction.show', $data);
+        //
     }
 
     /**

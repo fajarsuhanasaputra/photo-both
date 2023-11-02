@@ -89,3 +89,32 @@ td.dt-center {
 .role {
     margin-top: 34px;
 }
+
+.sidebar li .submenu {
+    list-style: none;
+    margin-left: 40px;
+    padding-left: 10px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+li.has-submenu .submenu .dropdown-item {
+    color: white;
+    padding-top: 15px;
+}
+
+li.has-submenu .submenu:hover .dropdown-item {
+    color: white;
+}
+
+.material-icons.map {
+    margin-top: -5px;
+}
+
+.nav-item.has-submenu>.nav-link>.material-icons.map {
+    margin-top: -5px;
+}

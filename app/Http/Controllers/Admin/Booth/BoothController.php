@@ -35,7 +35,7 @@ class BoothController extends Controller
                 'booths.booth_name',
                 'booths.address',
                 'booths.created_at',
-                DB::raw("sum(callbacks.amount) as amount"),
+                DB::raw("sum(callbacks.amount-(amount*0.007771)) as amount"),
             )
                 ->leftjoin('callbacks', 'booths.id', '=', 'callbacks.booth_id')
                 ->groupBy(DB::raw("booths.booth_id"))
@@ -120,7 +120,8 @@ class BoothController extends Controller
             'booths.img_logo',
             'booths.img_background',
             'booths.pricing',
-            DB::raw("sum(callbacks.amount) as amount"),
+            'booths.retake',
+            DB::raw("sum(callbacks.amount-(amount*0.007771)) as amount"),
         )->leftjoin('callbacks', 'booths.id', '=', 'callbacks.booth_id')
             ->groupBy(DB::raw("booths.booth_id"))
             ->orderByRaw("booths.booth_id asc")
@@ -171,6 +172,7 @@ class BoothController extends Controller
         $view['frame'] = $frame;
 
         $view['pricing'] = array('Default', 'Free Photobooth');
+        $view['retake'] = array('On', 'Off');
 
         $data = Booth::find($id);
 
@@ -219,6 +221,7 @@ class BoothController extends Controller
             'title' => $request->title,
             'subtitle' => $request->subtitle,
             'pricing' => $request->pricing,
+            'retake' => $request->retake,
             'frame' => $frame,
             'package' => $package
         ]);

@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Gallery\ListGuestController;
 use App\Http\Controllers\Api\Gallery\ListContactController;
 use App\Http\Controllers\Api\OyController;
 use App\Http\Controllers\Api\CallbackController;
+use App\Http\Controllers\Api\FreeController;
 use App\Http\Controllers\Api\Gallery\ImagePrintController;
 // use App\Http\Controllers\Api\AnalyticController;
 use App\Http\Controllers\Api\PackageController;
@@ -49,6 +50,9 @@ Route::get('callback/{id}', [CallbackController::class, 'show']);
 Route::post('callback', [CallbackController::class, 'store']);
 Route::get('callback', [CallbackController::class, 'store']);
 Route::post('analytic', [CallbackController::class, 'analytic']);
+
+
+Route::post('free', [FreeController::class, 'store']);
 //Protecting Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function (Request $request) {

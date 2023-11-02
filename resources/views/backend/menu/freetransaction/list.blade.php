@@ -18,7 +18,7 @@
                             <div class="card-icon">
                                 <i class="material-icons">receipt</i>
                             </div>
-                            <h4 class="card-title">User Tracking / Transaksi Paid</h4>
+                            <h4 class="card-title">User Tracking / Transaksi Free</h4>
                         </div>
                         <div class="card-body">
                             <div class="material-datatables">
@@ -31,7 +31,6 @@
                                             <th>BOOTH</th>
                                             <th>PAKET</th>
                                             <th>PAGE</th>
-                                            <th>Payload</th>
                                             <th>TOTAL</th>
                                             <th>DATE/TIME CREATED</th>
                                             <th>DATE/TIME UPDATED</th>
@@ -57,7 +56,7 @@
             $('#yajra-datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('transaction.index') }}",
+                ajax: "{{ route('freetransaction.index') }}",
                 language: {
                     "processing": ""
                 },
@@ -80,19 +79,6 @@
                     {
                         data: 'page',
                         name: 'page'
-                    },
-                    {
-                        data: 'payload',
-                        render: function(data, type, row) {
-                            if (type === 'display' && data) {
-                                var payload = typeof data === 'string' ? JSON.parse(data) : data;
-                                // Return the partner_trx_id
-                                return payload.partner_trx_id ? payload.partner_trx_id : 'N/A';
-                            } else {
-                                return '';
-                            }
-                        },
-                        name: 'payload.partner_trx_id'
                     },
                     {
                         data: 'amount',
