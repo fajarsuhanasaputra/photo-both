@@ -30,7 +30,7 @@
                                             <th>Name</th>
                                             <th>Hex</th>
                                             <th>Color</th>
-                                            <th>Action</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

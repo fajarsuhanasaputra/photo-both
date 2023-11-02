@@ -59,8 +59,14 @@
 .dataTable>thead>tr>th[class*="sort"]:after {
     content: "" !important;
 }
-.dataTable>thead>tr>th{
+
+.dataTable>thead>tr>th {
     font-size: 14px;
+    text-align: center;
+}
+
+th.dt-center,
+td.dt-center {
     text-align: center;
 }
 

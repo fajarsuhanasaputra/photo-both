@@ -149,6 +149,8 @@ class BoothController extends Controller
 
         $booth = new Booth;
         $view['data']['img_background'] = $booth->getImgBgAttribute($data->id . '/' . $data->img_background);
+        $view['data']['img_background2'] = $booth->getImgBgAttribute($data->id . '/' . $data->img_background2);
+        $view['data']['img_background3'] = $booth->getImgBgAttribute($data->id . '/' . $data->img_background3);
         $view['data']['img_logo'] = $booth->getImgLgAttribute($data->id . '/' . $data->img_logo);
 
         return view('backend.menu.booth.show', $view);
@@ -179,6 +181,8 @@ class BoothController extends Controller
 
         $booth = new Booth;
         $view['data']['img_background'] = $booth->getImgBgAttribute($data->id . '/' . $data->img_background);
+        $view['data']['img_background2'] = $booth->getImgBgAttribute($data->id . '/' . $data->img_background2);
+        $view['data']['img_background3'] = $booth->getImgBgAttribute($data->id . '/' . $data->img_background3);
         $view['data']['img_logo'] = $booth->getImgLgAttribute($data->id . '/' . $data->img_logo);
 
         return view('backend.menu.booth.edit', $view);
@@ -202,6 +206,8 @@ class BoothController extends Controller
             'title' => 'required',
             'subtitle' => 'required',
             'img_background' => 'nullable|mimes:png,jpg,jpeg|max:10000',
+            'img_background2' => 'nullable|mimes:png,jpg,jpeg|max:10000',
+            'img_background3' => 'nullable|mimes:png,jpg,jpeg|max:10000',
             'img_logo' => 'nullable|mimes:png,jpg,jpeg|max:10000',
         ]);
 
@@ -226,6 +232,24 @@ class BoothController extends Controller
             $location = storage_path('app/public/images/background') . '/' . $id . '/' . $image_full_name;
             Image::make($photo)->save($location);
             $data['img_background'] = $image_full_name;
+            $data->save();
+        }
+        if ($request->hasFile('img_background2')) {
+            $photo = $request->file('img_background2');
+            $ext = strtolower($photo->getClientOriginalExtension());
+            $image_full_name = Str::slug($request->title) . '.' . $ext;
+            $location = storage_path('app/public/images/background') . '/' . $id . '/' . $image_full_name;
+            Image::make($photo)->save($location);
+            $data['img_background2'] = $image_full_name;
+            $data->save();
+        }
+        if ($request->hasFile('img_background3')) {
+            $photo = $request->file('img_background3');
+            $ext = strtolower($photo->getClientOriginalExtension());
+            $image_full_name = Str::slug($request->title) . '.' . $ext;
+            $location = storage_path('app/public/images/background') . '/' . $id . '/' . $image_full_name;
+            Image::make($photo)->save($location);
+            $data['img_background3'] = $image_full_name;
             $data->save();
         }
 

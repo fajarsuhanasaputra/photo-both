@@ -30,7 +30,7 @@ class FrameController extends Controller
                 ->addColumn('action', function ($row) {
                     return '
                     <div class="text-right">
-                        <a href="'. route('frame.edit', $row->id) . '" class="edit btn btn-warning btn-sm">
+                        <a href="' . route('frame.edit', $row->id) . '" class="edit btn btn-warning btn-sm">
                             <i class="material-icons">edit_square</i>
                         </a>
                         <form method="POST" action="' . route('frame.destroy', ['frame' => $row->id]) . '" class="delete-form">
@@ -68,9 +68,9 @@ class FrameController extends Controller
         $request->validate([
             'name' => 'required',
             'size' => 'required',
-            'img_frame_left' => 'required|mimes:png,jpg,jpeg|max:10000',
-            'img_frame_right' => 'required|mimes:png,jpg,jpeg|max:10000',
-            'order_number' => ['unique:frames', 'required'],
+            'img_frame_left' => 'mimes:png,jpg,jpeg|max:10000',
+            'img_frame_right' => 'mimes:png,jpg,jpeg|max:10000',
+            'order_number' => 'required',
         ]);
         $data = new Frame();
         $data->name = $request->name;
@@ -116,15 +116,51 @@ class FrameController extends Controller
             'size' => 'required',
             'img_frame_right' => 'nullable|mimes:png,jpg,jpeg|max:10000',
             'img_frame_left' => 'nullable|mimes:png,jpg,jpeg|max:10000',
-            'order_number' => ['required', Rule::unique('frames')->ignore($id)],
+            'order_number' => 'required',
         ]);
 
         $data = Frame::find($id);
-        $data->update([
-            'name' => $request->name,
-            'size' => $request->size,
-            'order_number' => $request->order_number,
-        ]);
+
+        $newOrderNumber = $request->order_number;
+
+        // Check if the order number is being updated
+        if ($data->order_number != $newOrderNumber) {
+            if ($newOrderNumber < $data->order_number) {
+                $framesToShift = Frame::where('order_number', '>=', $newOrderNumber)
+                    ->where('order_number', '<', $data->order_number)
+                    ->where('id', '!=', $id)
+                    ->orderBy('order_number')
+                    ->get();
+
+                // Shifting order numbers for frames between the new order number and the old order number
+                foreach ($framesToShift as $frame) {
+                    $frame->order_number += 1;
+                    $frame->save();
+                }
+            } else {
+                $framesToShift = Frame::where('order_number', '>', $data->order_number)
+                    ->where('order_number', '<=', $newOrderNumber)
+                    ->where('id', '!=', $id)
+                    ->orderBy('order_number')
+                    ->get();
+
+                // Shifting order numbers for frames between the old order number and the new order number
+                foreach ($framesToShift as $frame) {
+                    $frame->order_number -= 1;
+                    $frame->save();
+                }
+            }
+
+            $data->order_number = $newOrderNumber;
+            $data->name = $request->name;
+            $data->size = $request->size;
+            $data->save();
+        } else {
+            // If the order number is not being changed, update the name and size
+            $data->name = $request->name;
+            $data->size = $request->size;
+            $data->save();
+        }
 
         if ($request->hasFile('img_frame_left')) {
             $photo = $request->file('img_frame_left');

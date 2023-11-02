@@ -1,34 +1,34 @@
 <!--   Core JS Files   -->
-<script src="{{ (asset('assets/js/core/jquery.min.js')) }}"></script>
-<script src="{{ (asset('assets/js/core/popper.min.js')) }}"></script>
-<script src="{{ (asset('assets/js/core/bootstrap-material-design.min.js')) }}"></script>
-<script src="{{ (asset('assets/js/plugins/perfect-scrollbar.jquery.min.js')) }}"></script>
+<script src="{{ asset('assets/js/core/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/core/bootstrap-material-design.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
 <!-- Plugin for the momentJs  -->
-<script src="{{ (asset('assets/js/plugins/moment.min.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/moment.min.js') }}"></script>
 <!-- Forms Validations Plugin -->
-<script src="{{ (asset('assets/js/plugins/jquery.validate.min.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/jquery.validate.min.js') }}"></script>
 <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-<script src="{{ (asset('assets/js/plugins/jquery.bootstrap-wizard.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/jquery.bootstrap-wizard.js') }}"></script>
 <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-<script src="{{ (asset('assets/js/plugins/bootstrap-selectpicker.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/bootstrap-selectpicker.js') }}"></script>
 <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-<script src="{{ (asset('assets/js/plugins/jquery.dataTables.min.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/jquery.dataTables.min.js') }}"></script>
 <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-<script src="{{ (asset('assets/js/plugins/bootstrap-tagsinput.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/bootstrap-tagsinput.js') }}"></script>
 <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-<script src="{{ (asset('assets/js/plugins/jasny-bootstrap.min.js')) }}"></script>
-<script src="{{ (asset('assets/js/plugins/arrive.min.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/jasny-bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugins/arrive.min.js') }}"></script>
 
 <!-- Chartist JS -->
-<script src="{{ (asset('assets/js/plugins/chartist.min.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/chartist.min.js') }}"></script>
 <!--  Notifications Plugin    -->
-<script src="{{ (asset('assets/js/plugins/bootstrap-notify.js')) }}"></script>
+<script src="{{ asset('assets/js/plugins/bootstrap-notify.js') }}"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="{{ (asset('assets/js/material-dashboard.min1c51.js?v=2.1.2')) }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/material-dashboard.min1c51.js?v=2.1.2') }}" type="text/javascript"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="{{ (asset('assets/demo/demo.js')) }}"></script>
+<script src="{{ asset('assets/demo/demo.js') }}"></script>
 <!-- Sharrre libray -->
-<script src="{{ (asset('assets/demo/jquery.sharrre.js')) }}"></script>
+<script src="{{ asset('assets/demo/jquery.sharrre.js') }}"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
@@ -52,7 +52,7 @@
                 search: "_INPUT_",
                 searchPlaceholder: "Search records",
             },
-            "initComplete": function(){
+            "initComplete": function() {
                 $("#datatables").show();
             },
         });
@@ -86,7 +86,7 @@
     const value = document.getElementById('dashboard-data').value;
     const parsed = JSON.parse(value);
 
-    const data = parsed.map(i => Math.ceil(i.amount - (i.amount * 0.007771)))
+    const data = parsed.map(i => Math.floor(i.amount - (i.amount * 0.007771)))
     const labels = parsed.map(i => i.tanggal)
 
     const options = {
@@ -110,4 +110,4 @@
 
     new Chart(canvas, options);
 </script>
-<script src="{{ (asset('assets/easy-number-separator.js' )) }}"></script>
+<script src="{{ asset('assets/easy-number-separator.js') }}"></script>

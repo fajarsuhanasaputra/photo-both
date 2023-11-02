@@ -35,7 +35,7 @@
                                             <th>Size</th>
                                             <th>Order Number</th>
                                             <th>Uploaded</th>
-                                            <th class="disabled-sorting text-right">Actions</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

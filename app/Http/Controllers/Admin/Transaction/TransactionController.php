@@ -19,6 +19,7 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
+
         if ($request->ajax()) {
             $booth_name = $request->input('booth-select', '');
             $tgl_start = $request->input('tgl-start', '');
@@ -37,6 +38,7 @@ class TransactionController extends Controller
                     'booths.booth_name',
                     'packages.package_name',
                     'callbacks.page',
+                    'callbacks.payload',
                     'callbacks.amount',
                     'callbacks.created_at',
                     'callbacks.updated_at',
@@ -58,6 +60,7 @@ class TransactionController extends Controller
                     'booth_name' => $item->booth_name,
                     'package_name' => $item->package_name,
                     'page' => $item->page,
+                    'payload' => $item->payload,
                     'amount' => $item->amount,
                     'created_at' => $item->created_at,
                     'updated_at' => $item->updated_at,
@@ -66,21 +69,21 @@ class TransactionController extends Controller
             });
 
             return DataTables::of($data)
-            ->addIndexColumn()
-            ->editColumn('created_at', function ($row) {
-                return [
-                    'display' => Carbon::parse($row->created_at)->format('d-m-Y H:i:s'),
-                    'timestamp' => $row->created_at->timestamp
-                ];
-            })
-            ->editColumn('updated_at', function ($row) {
-                return [
-                    'display' => Carbon::parse($row->updated_at)->format('d-m-Y H:i:s'),
-                    'timestamp' => $row->updated_at->timestamp
-                ];
-            })
-            ->rawColumns(['action'])
-            ->make(true);
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($row) {
+                    return [
+                        'display' => Carbon::parse($row->created_at)->format('d-m-Y H:i:s'),
+                        'timestamp' => $row->created_at->timestamp
+                    ];
+                })
+                ->editColumn('updated_at', function ($row) {
+                    return [
+                        'display' => Carbon::parse($row->updated_at)->format('d-m-Y H:i:s'),
+                        'timestamp' => $row->updated_at->timestamp
+                    ];
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
         // $booth = Booth::latest()->get();
         // $data['booth'] = $booth;

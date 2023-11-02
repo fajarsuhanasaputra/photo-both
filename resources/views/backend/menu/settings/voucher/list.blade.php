@@ -32,7 +32,7 @@
                                             <th>Value</th>
                                             <th>Start</th>
                                             <th>Expired</th>
-                                            <th class="disabled-sorting text-right">Actions</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -109,6 +109,10 @@
                         searchable: false // Disable searching for this column
                     },
                 ],
+                columnDefs: [{
+                    "className": "dt-center",
+                    "targets": "_all"
+                }],
                 initComplete: function(settings, json) {
                     $('#loader-container').hide(); // Hide the loader after DataTable is initialized
                     $('.material-datatables').show(); // Show the table after DataTable is initialized

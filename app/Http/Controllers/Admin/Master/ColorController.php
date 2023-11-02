@@ -7,25 +7,28 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 
-class ColorController extends Controller {
+class ColorController extends Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         if ($request->ajax()) {
             $data = Color::all();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('color', function($row){
+                ->addColumn('color', function ($row) {
                     $clr = '<input type="color" value="' . $row->hex . '" disabled>';
                     return $clr;
                 })
-                ->addColumn('action', function($row){
+                ->addColumn('action', function ($row) {
                     return '
-                    <div class="text-left">
-                        <a href="'. route('color.edit', $row->id) . '" class="edit btn btn-warning btn-sm">
+                    <div class="text-center">
+                        <a href="' . route('color.edit', $row->id) . '" class="edit btn btn-warning btn-sm">
                             <i class="material-icons">edit_square</i>
                         </a>
                         <form method="POST" action="' . route('color.destroy', ['color' => $row->id]) . '" class="delete-form">
@@ -44,11 +47,13 @@ class ColorController extends Controller {
         return view('backend.menu.master.color.list');
     }
 
-    public function create(){
+    public function create()
+    {
         return view('backend.menu.master.color.add');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'hex' => 'required',
@@ -68,7 +73,8 @@ class ColorController extends Controller {
         return view('backend.menu.master.color.edit', $view);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $this->validate($request, [
             'name' => 'required',
             'hex' => 'required',
@@ -83,11 +89,11 @@ class ColorController extends Controller {
         return redirect(route('color.index'))->with(['success' => 'Data has been Updated !']);
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $data = Color::find($id);
         $data->delete();
         alert()->success('Data Berhasil Dihapus', 'Successfully')->toToast()->timerProgressBar()->autoClose(2000);
         return redirect(route('color.index'))->with(['success' => 'Data has been Deleted !']);
     }
-
 }

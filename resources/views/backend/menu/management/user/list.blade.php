@@ -30,7 +30,7 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Role</th>
-                                            <th class="text-right">Actions</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

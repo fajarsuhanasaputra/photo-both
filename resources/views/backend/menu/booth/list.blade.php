@@ -28,7 +28,7 @@
                                             <th>ADDRESS</th>
                                             <th>INCOME</th>
                                             <th>CREATED</th>
-                                            <th class="disabled-sorting text-right">Actions</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

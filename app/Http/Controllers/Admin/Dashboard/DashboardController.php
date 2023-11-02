@@ -32,7 +32,7 @@ class DashboardController extends Controller
             ->when($tgl_start, function ($query, $tgl_start) {
                 $query->where('created_at', '>=', $tgl_start);
             })->when($tgl_end, function ($query, $tgl_end) {
-                $query->where('created_at', '<=', $tgl_end.' 23:59:59');
+                $query->where('created_at', '<=', $tgl_end . ' 23:59:59');
             })->when($booth_name, function ($query, $booth_name) {
                 $query->where('booth_id', $booth_name);
             })->sum('amount');
@@ -43,7 +43,7 @@ class DashboardController extends Controller
             ->when($tgl_start, function ($query, $tgl_start) {
                 $query->where('created_at', '>=', $tgl_start);
             })->when($tgl_end, function ($query, $tgl_end) {
-                $query->where('created_at', '<=', $tgl_end.' 23:59:59');
+                $query->where('created_at', '<=', $tgl_end . ' 23:59:59');
             })->when($booth_name, function ($query, $booth_name) {
                 $query->where('booth_id', $booth_name);
             })->count();
@@ -53,7 +53,7 @@ class DashboardController extends Controller
         $tot_form = ListContact::when($tgl_start, function ($query, $tgl_start) {
             $query->where('created_at', '>=', $tgl_start);
         })->when($tgl_end, function ($query, $tgl_end) {
-            $query->where('created_at', '<=', $tgl_end.' 23:59:59');
+            $query->where('created_at', '<=', $tgl_end . ' 23:59:59');
         })->when($booth_name, function ($query, $booth_name) {
             $query->where('booth_id', $booth_name);
         })->count();
@@ -65,7 +65,7 @@ class DashboardController extends Controller
             ->when($tgl_start, function ($query, $tgl_start) {
                 $query->where('created_at', '>=', $tgl_start);
             })->when($tgl_end, function ($query, $tgl_end) {
-                $query->where('created_at', '<=', $tgl_end.' 23:59:59');
+                $query->where('created_at', '<=', $tgl_end . ' 23:59:59');
             })->when($booth_name, function ($query, $booth_name) {
                 $query->where('booth_id', $booth_name);
             })->groupBy(DB::raw("date(created_at)"))
@@ -85,7 +85,7 @@ class DashboardController extends Controller
         $view['tgl_start'] = $tgl_start;
         $view['tgl_end'] = $tgl_end;
         $view['chart'] = $chart;
-        // dd($view);
+        // dd($chart);
         return view('backend.menu.dashboard.dashboard', $view);
     }
 }

@@ -31,11 +31,12 @@
                                             <th>BOOTH</th>
                                             <th>PAKET</th>
                                             <th>PAGE</th>
+                                            <th>Payload</th>
                                             <th>TOTAL</th>
                                             <th>DATE/TIME CREATED</th>
                                             <th>DATE/TIME UPDATED</th>
                                             <th>STATUS</th>
-                                            <th class="text-right">Actions</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -79,6 +80,19 @@
                     {
                         data: 'page',
                         name: 'page'
+                    },
+                    {
+                        data: 'payload',
+                        render: function(data, type, row) {
+                            if (type === 'display' && data) {
+                                var payload = typeof data === 'string' ? JSON.parse(data) : data;
+                                // Return the partner_trx_id
+                                return payload.partner_trx_id ? payload.partner_trx_id : 'N/A';
+                            } else {
+                                return '';
+                            }
+                        },
+                        name: 'payload.partner_trx_id'
                     },
                     {
                         data: 'amount',
