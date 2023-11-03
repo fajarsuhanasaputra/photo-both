@@ -26,14 +26,13 @@ class FreeController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-
-        //create post
+        $page = $request->discount && $request->discount != 'none'  ? 'slide - voucher' . $request->discount . '%' : 'slide';
         $post = Free::create([
             'status'   => $request->status,
             'trx_id'   => $request->trx_id,
             'amount'   => $request->amount,
             'payload'   => $request->payload,
-            'page'   => $request->page,
+            'page'   => $page,
             'package_id'   => $request->package_id,
             'booth_id'   => $request->booth_id,
         ]);

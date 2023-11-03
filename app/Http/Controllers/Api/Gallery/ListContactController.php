@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Api\Gallery;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Carbon\Carbon;
+use App\Models\Free;
+use App\Models\Package;
 //use Intervention\Image\Facades\Image;
 //use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\LinkDownload;
-use Illuminate\Support\Facades\File;
-use App\Models\ListContact;
-use App\Http\Resources\Gallery\ListContactResource;
 use App\Models\Callback;
+use App\Mail\LinkDownload;
+use App\Models\ListContact;
+use Illuminate\Http\Request;
 use App\Models\Images\ImagePrint;
-use App\Models\Package;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\Gallery\ListContactResource;
 
 //use Illuminate\Support\Facades\DB;
 
@@ -51,8 +52,17 @@ class ListContactController extends Controller
             return response()->json($validator->errors(), 400);
         }
         //
-        $callback = Callback::where('trx_id', '=', $request->transaksi_id)->first();
-        $paket = Package::where('id', '=', $callback->package_id)->first();
+        if (strpos($request->transaksi_id, 'Free-') !== false) {
+            // Use Free model if transaksi_id contains 'Free-'
+            $freeTransaction = Free::where('trx_id', '=', $request->transaksi_id)->first();
+            $paket = Package::where('id', '=', $freeTransaction->package_id)->first();
+            // Your logic with Free model data if needed
+        } else {
+            // Use the existing code
+            $callback = Callback::where('trx_id', '=', $request->transaksi_id)->first();
+            $paket = Package::where('id', '=', $callback->package_id)->first();
+            // Your logic with Package model data
+        }
 
         $total = $paket->total;
 

@@ -52,7 +52,8 @@ Route::get('callback', [CallbackController::class, 'store']);
 Route::post('analytic', [CallbackController::class, 'analytic']);
 
 
-Route::post('free', [FreeController::class, 'store']);
+Route::post('free_transaction', [FreeController::class, 'store']);
+Route::post('free_analytic', [FreeController::class, 'analytic']);
 //Protecting Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function (Request $request) {

@@ -39,7 +39,7 @@ class BoothController extends Controller
             )
                 ->leftjoin('callbacks', 'booths.id', '=', 'callbacks.booth_id')
                 ->groupBy(DB::raw("booths.booth_id"))
-                ->orderByRaw("booths.booth_id asc")
+                ->orderByRaw("booths.booth_id desc")
                 ->get();
             $transformedData = $data->map(function ($item, $key) {
                 return [
